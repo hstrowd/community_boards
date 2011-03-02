@@ -15,19 +15,9 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
-  <div class="location fields">
-    <div class="field">
-      <%= label :location, :country_cd, "Country Code" %><br />
-      <%= text_field :location, :country_cd, :size => 3 %>
-    </div>
-    <div class="field">
-      <%= label :location, :state_cd, "State/Province Code" %><br />
-      <%= text_field :location, :state_cd, :size => 5 %>
-    </div>
-    <div class="field">
-      <%= label :location, :city, "City" %><br />
-      <%= text_field :location, :city %>
-    </div>
+  <div class="field">
+    <%= f.label :location %><br />
+    <%= f.select :location_id, Location.all.collect { |loc| ["#{loc.city}#{(!loc.state_cd.blank? && ", #{loc.state_cd}") || ""}", loc.id] }, { :include_blank => 'None' } %>
   </div>
   <div class="actions">
     <%= f.submit %>

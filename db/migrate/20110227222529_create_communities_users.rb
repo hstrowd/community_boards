@@ -1,9 +1,11 @@
 class CreateCommunitiesUsers < ActiveRecord::Migration
   def self.up
-    execute "CREATE TABLE communities_users ( user_id integer NOT NULL,
-                                              community_id integer NOT NULL,
-                                              created_at datetime, 
-                                              INDEX (user_id, community_id))"
+    create_table(:communities_users, :id => false) do |t|
+      t.integer :user_id, :null => false
+      t.integer :community_id, :null => false
+
+      t.timestamps
+    end
   end
 
   def self.down

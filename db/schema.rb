@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110227222529) do
+ActiveRecord::Schema.define(:version => 20110302024340) do
 
   create_table "communities", :force => true do |t|
     t.string   "name",        :null => false
@@ -19,16 +19,14 @@ ActiveRecord::Schema.define(:version => 20110227222529) do
     t.datetime "updated_at"
   end
 
-  add_index "communities", ["id"], :name => "id"
-  add_index "communities", ["location_id"], :name => "INDEX_location_id"
+  add_index "communities", ["location_id"], :name => "fk_communities_location_id"
 
   create_table "communities_users", :id => false, :force => true do |t|
     t.integer  "user_id",      :null => false
     t.integer  "community_id", :null => false
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
-
-  add_index "communities_users", ["user_id", "community_id"], :name => "user_id"
 
   create_table "events", :force => true do |t|
     t.string   "title",        :null => false
@@ -36,30 +34,39 @@ ActiveRecord::Schema.define(:version => 20110227222529) do
     t.integer  "community_id", :null => false
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer  "cost"
+    t.float    "cost"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "events", ["community_id"], :name => "INDEX_communtiy_id"
-  add_index "events", ["id"], :name => "id"
+  add_index "events", ["community_id"], :name => "fk_events_community_id"
 
   create_table "locations", :force => true do |t|
     t.string   "country_cd", :limit => 3, :null => false
-    t.string   "state_cd",   :limit => 5
+    t.string   "state_cd",   :limit => 5, :null => false
     t.string   "city",                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "locations", ["country_cd", "state_cd", "city"], :name => "country_cd", :unique => true
+  add_index "locations", ["country_cd", "state_cd", "city"], :name => "unique_contry_state_city", :unique => true
   add_index "locations", ["id"], :name => "id"
+
+  create_table "roles", :force => true do |t|
+    t.text     "name",        :null => false
+    t.text     "description", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",      :null => false
     t.string   "password",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "role_id",    :null => false
   end
+
+  add_index "users", ["role_id"], :name => "fk_users_role_id"
 
 end

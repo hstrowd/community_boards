@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :community %><br />
-    <%= f.text_field :community %>
+    <%= f.select :community_id, Community.all.collect { |comm| [comm.name, comm.id] } %>
   </div>
   <div class="field">
     <%= f.label :start_time %><br />
@@ -33,7 +33,7 @@
   </div>
   <div class="field">
     <%= f.label :cost %><br />
-    <%= f.text_field :cost %>
+    <%= f.text_field :cost, :size => 6 %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -5,8 +5,9 @@
     <th>Title</th>
     <th>Description</th>
     <th>Community</th>
-    <th>Start time</th>
-    <th>End time</th>
+    <th>Event Date</th>
+    <th>Start Time</th>
+    <th>End Time</th>
     <th>Cost</th>
     <th></th>
     <th></th>
@@ -17,9 +18,10 @@
   <tr>
     <td><%= event.title %></td>
     <td><%= event.description %></td>
-    <td><%= event.community %></td>
-    <td><%= event.start_time %></td>
-    <td><%= event.end_time %></td>
+    <td><%= link_to event.community.name, event.community %></td>
+    <td><%= event.start_time.strftime('%D') %></td>
+    <td><%= event.start_time.strftime('%H:%M') %></td>
+    <td><%= event.end_time.strftime('%H:%M') %></td>
     <td><%= event.cost %></td>
     <td><%= link_to 'Show', event %></td>
     <td><%= link_to 'Edit', edit_event_path(event) %></td>
@@ -30,4 +32,4 @@
 
 <br />
 
-<%= link_to 'New Event', new_event_path %>
+<%= link_to 'New Event', new_event_path %> | <%= link_to 'Home', root_path %>

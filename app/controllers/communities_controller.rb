@@ -43,7 +43,6 @@ class CommunitiesController < ApplicationController
   # POST /communities.xml
   def create
     @community = Community.new(params[:community])
-    @community.location = Location.where(params[:location]).first || Location.new(params[:location])
 
     respond_to do |format|
       if @community.save
@@ -60,21 +59,14 @@ class CommunitiesController < ApplicationController
   # PUT /communities/1.xml
   def update
     @community = Community.find(params[:id])
-    @location = Location.where(params[:location]).first || Location.new(params[:location])
 
     respond_to do |format|
-      if !@location.new_record? || @location.save
-        community_attributes = { :location_id => @location.id }.merge(params[:community])
-        if @community.update_attributes(community_attributes)
-          format.html { redirect_to(@community, :notice => 'Community was successfully updated.') }
-          format.xml  { head :ok }
-        else
-          format.html { render :action => "edit" }
-          format.xml  { render :xml => @community.errors, :status => :unprocessable_entity }
-        end
+      if @community.update_attributes(params[:community])
+        format.html { redirect_to(@community, :notice => 'Community was successfully updated.') }
+        format.xml  { head :ok }
       else
-          format.html { render :action => "edit" }
-          format.xml  { render :xml => @location.errors, :status => :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @community.errors, :status => :unprocessable_entity }
       end
     end
   end

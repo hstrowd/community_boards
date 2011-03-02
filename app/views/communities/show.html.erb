@@ -8,7 +8,7 @@
 <% if @community.location %>
   <p>
     <b>Location:</b>
-    <%= @community.location.city %><%= (!@community.location.state_cd.blank? && ", #{@community.location.state_cd}") || "" %>
+    <%= link_to "#{@community.location.city}#{(!@community.location.state_cd.blank? && ", #{@community.location.state_cd}") || ""}", @community.location %>
   </p>
 <% end %>
 

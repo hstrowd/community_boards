@@ -4,11 +4,13 @@ class CreateLocations < ActiveRecord::Migration
                                       country_cd varchar(3) NOT NULL,
                                       state_cd varchar(5) NOT NULL,
                                       city varchar(255) NOT NULL,
-                                      created_at datetime, 
-                                      updated_at datetime, 
-                                      INDEX (id))"
+                                      created_at datetime,
+                                      updated_at datetime,
+                                      INDEX (id) ) ENGINE=InnoDB"
 
-    execute "ALTER TABLE locations ADD UNIQUE (country_cd, state_cd, city)"
+    execute "ALTER TABLE locations 
+                     ADD CONSTRAINT unique_contry_state_city
+                             UNIQUE (country_cd, state_cd, city)"
   end
 
   def self.down

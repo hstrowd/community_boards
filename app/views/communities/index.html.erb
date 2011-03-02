@@ -12,7 +12,11 @@
 <% @communities.each do |community| %>
   <tr>
     <td><%= community.name %></td>
-    <td><% if community.location %><%= community.location.city %><%= (!community.location.state_cd.blank? && ", #{community.location.state_cd}") || "" %><% end %></td>
+    <td>
+      <% if community.location %>
+        <%= link_to("#{community.location.city}#{(!community.location.state_cd.blank? && ", #{community.location.state_cd}") || ""}", community.location) %>
+      <% end %>
+    </td>
     <td><%= link_to 'Show', community %></td>
     <td><%= link_to 'Edit', edit_community_path(community) %></td>
     <td><%= link_to 'Destroy', community, :confirm => 'Are you sure?', :method => :delete %></td>
