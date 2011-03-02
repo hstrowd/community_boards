@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @community.name %>
+</p>
+
+<% if @community.location %>
+  <p>
+    <b>Location:</b>
+    <%= @community.location.city %><%= (!@community.location.state_cd.blank? && ", #{@community.location.state_cd}") || "" %>
+  </p>
+<% end %>
+
+
+<%= link_to 'Edit', edit_community_path(@community) %> |
+<%= link_to 'Back', communities_path %>

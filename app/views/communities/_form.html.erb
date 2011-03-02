@@ -1,0 +1,35 @@
+<%= form_for @community do |f| %>
+  <% if @community.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@community.errors.count, "error") %> prohibited this community from being saved:</h2>
+
+      <ul>
+      <% @community.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="location fields">
+    <div class="field">
+      <%= label :location, :country_cd, "Country Code" %><br />
+      <%= text_field :location, :country_cd, :size => 3 %>
+    </div>
+    <div class="field">
+      <%= label :location, :state_cd, "State/Province Code" %><br />
+      <%= text_field :location, :state_cd, :size => 5 %>
+    </div>
+    <div class="field">
+      <%= label :location, :city, "City" %><br />
+      <%= text_field :location, :city %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<html>
+Hello, World!
+
+<%= form_tag :action => 'authenticate' %>
+  User name:
+  <%= text_field("userform", "user_name",:size=>"20" ) %>
+  Password:
+  <%= password_field("userform", "password",:size=>"20" ) %>
+<input type="submit" value=" LOGIN " />
+</html>

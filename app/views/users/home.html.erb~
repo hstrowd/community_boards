@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+<p id="error"><%= error %></p>
+Hello, <%= @user.email %>!
+
+<br/>
+
+<%= link_to "Logout", '/application/logout' %>
