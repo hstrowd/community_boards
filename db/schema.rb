@@ -21,12 +21,15 @@ ActiveRecord::Schema.define(:version => 20110302024340) do
 
   add_index "communities", ["location_id"], :name => "fk_communities_location_id"
 
-  create_table "communities_users", :id => false, :force => true do |t|
+  create_table "community_members", :force => true do |t|
     t.integer  "user_id",      :null => false
     t.integer  "community_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "community_members", ["community_id"], :name => "fk_community_members_community_id"
+  add_index "community_members", ["user_id"], :name => "fk_community_members_user_id"
 
   create_table "events", :force => true do |t|
     t.string   "title",        :null => false
@@ -52,7 +55,7 @@ ActiveRecord::Schema.define(:version => 20110302024340) do
   add_index "locations", ["country_cd", "state_cd", "city"], :name => "unique_contry_state_city", :unique => true
   add_index "locations", ["id"], :name => "id"
 
-  create_table "roles", :force => true do |t|
+  create_table "permissions", :force => true do |t|
     t.text     "name",        :null => false
     t.text     "description", :null => false
     t.datetime "created_at"
@@ -60,13 +63,13 @@ ActiveRecord::Schema.define(:version => 20110302024340) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",      :null => false
-    t.string   "password",   :null => false
+    t.string   "email",         :null => false
+    t.string   "password",      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "role_id",    :null => false
+    t.integer  "permission_id", :null => false
   end
 
-  add_index "users", ["role_id"], :name => "fk_users_role_id"
+  add_index "users", ["permission_id"], :name => "fk_users_permission_id"
 
 end

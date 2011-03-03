@@ -1,4 +1,6 @@
+require 'migration_helper'
 class CreateCommunities < ActiveRecord::Migration
+  extend MigrationHelper
   def self.up
     create_table :communities do |t|
       t.string :name, :null => false
@@ -7,10 +9,7 @@ class CreateCommunities < ActiveRecord::Migration
       t.timestamps
     end
 
-    execute "ALTER TABLE communities 
-                     ADD CONSTRAINT fk_communities_location_id
-                        FOREIGN KEY (location_id) 
-                         REFERENCES locations(id)"
+    add_foreign_key 'communities', 'location_id', 'locations'
   end
 
   def self.down

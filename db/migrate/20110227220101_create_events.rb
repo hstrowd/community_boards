@@ -1,4 +1,7 @@
+require 'migration_helper'
 class CreateEvents < ActiveRecord::Migration
+  extend MigrationHelper
+
   def self.up
     create_table :events do |t|
       t.string :title, :null => false
@@ -11,10 +14,7 @@ class CreateEvents < ActiveRecord::Migration
       t.timestamps
     end
 
-    execute "ALTER TABLE events 
-                     ADD CONSTRAINT fk_events_community_id
-                        FOREIGN KEY (community_id) 
-                         REFERENCES communities(id)"
+    add_foreign_key 'events', 'community_id', 'communities'
   end
 
   def self.down
