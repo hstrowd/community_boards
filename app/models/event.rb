@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
-  belongs_to :community
-
   validates_presence_of :title, :community_id
+
+  belongs_to :community
+  has_many :users, :through => :event_attendances
 end

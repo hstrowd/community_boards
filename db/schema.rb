@@ -10,16 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302024340) do
+ActiveRecord::Schema.define(:version => 20110303010933) do
 
   create_table "communities", :force => true do |t|
     t.string   "name",        :null => false
     t.integer  "location_id"
+    t.string   "type",        :null => false
+    t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "communities", ["location_id"], :name => "fk_communities_location_id"
+  add_index "communities", ["owner_id"], :name => "fk_communities_owner_id"
 
   create_table "community_members", :force => true do |t|
     t.integer  "user_id",      :null => false
@@ -30,6 +33,23 @@ ActiveRecord::Schema.define(:version => 20110302024340) do
 
   add_index "community_members", ["community_id"], :name => "fk_community_members_community_id"
   add_index "community_members", ["user_id"], :name => "fk_community_members_user_id"
+
+  create_table "event_attendance_statuses", :force => true do |t|
+    t.string "status",      :null => false
+    t.string "description", :null => false
+  end
+
+  create_table "event_attendances", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "event_id",   :null => false
+    t.integer  "status_id",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_attendances", ["event_id"], :name => "fk_event_attendances_event_id"
+  add_index "event_attendances", ["status_id"], :name => "fk_event_attendances_status_id"
+  add_index "event_attendances", ["user_id"], :name => "fk_event_attendances_user_id"
 
   create_table "events", :force => true do |t|
     t.string   "title",        :null => false
@@ -68,8 +88,10 @@ ActiveRecord::Schema.define(:version => 20110302024340) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "permission_id", :null => false
+    t.integer  "location_id"
   end
 
+  add_index "users", ["location_id"], :name => "fk_users_location_id"
   add_index "users", ["permission_id"], :name => "fk_users_permission_id"
 
 end

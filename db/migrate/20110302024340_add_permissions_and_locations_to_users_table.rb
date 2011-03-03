@@ -1,11 +1,12 @@
 require 'migration_helper'
-class AddPermissionsToUsersTable < ActiveRecord::Migration
+class AddPermissionsAndLocationsToUsersTable < ActiveRecord::Migration
   extend MigrationHelper
-
   def self.up
     add_column :users, :permission_id, :integer, :null => false
-
     add_foreign_key 'users', 'permission_id', 'permissions'
+
+    add_column :users, :location_id, :integer
+    add_foreign_key 'users', 'location_id', 'locations'
 
     User.new({ :email => 'admin@commboards.com', 
                :password => 'admin1', 
