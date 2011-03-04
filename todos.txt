@@ -1,0 +1,2 @@
+TODOs:
+- Add the page title to the title of each page.
