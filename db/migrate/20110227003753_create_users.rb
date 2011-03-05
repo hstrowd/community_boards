@@ -15,14 +15,29 @@ class CreateUsers < ActiveRecord::Migration
                        :description => 'No other users can find this user, view any of their information, or request their friendship.').save!
 
     create_table :users do |t|
-      t.string :email, :null => false
+      t.string :username, :null => false
       t.string :password, :null => false
+      t.integer :primary_email_id, :null => false
+      t.string :first_name
+      t.string :last_name
       t.integer :visibility_id, :null => false
 
       t.timestamps
     end
 
     add_foreign_key 'users', 'visibility_id', 'user_visibilities'
+
+
+    create_table :email_addresses do |t|
+      t.string :email, :null => false
+      t.integer :user_id
+
+      t.timestamps
+    end
+
+    add_foreign_key 'email_addresses', 'user_id', 'users'
+
+    add_foreign_key 'users', 'primary_email_id', 'email_addresses'
 
     create_table :friendship_statuses do |t|
       t.string :name, :null => false

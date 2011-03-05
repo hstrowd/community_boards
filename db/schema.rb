@@ -45,27 +45,86 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
     t.string "description", :null => false
   end
 
+  create_table "email_addresses", :force => true do |t|
+    t.string   "email",      :null => false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "email_addresses", ["user_id"], :name => "fk_email_addresses_user_id"
+
   create_table "event_attendance_statuses", :force => true do |t|
-    t.string "status",      :null => false
+    t.string "name",        :null => false
     t.string "description", :null => false
   end
 
   create_table "event_attendances", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.integer  "event_id",   :null => false
-    t.integer  "status_id",  :null => false
+    t.integer  "user_id",       :null => false
+    t.integer  "event_id",      :null => false
+    t.integer  "status_id",     :null => false
+    t.integer  "invitation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "event_attendances", ["event_id"], :name => "fk_event_attendances_event_id"
+  add_index "event_attendances", ["invitation_id"], :name => "fk_event_attendances_invitation_id"
   add_index "event_attendances", ["status_id"], :name => "fk_event_attendances_status_id"
   add_index "event_attendances", ["user_id"], :name => "fk_event_attendances_user_id"
 
+  create_table "event_invitation_emails", :force => true do |t|
+    t.integer  "invitation_id", :null => false
+    t.integer  "email_id",      :null => false
+    t.integer  "status_id",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_invitation_emails", ["email_id"], :name => "fk_event_invitation_emails_email_id"
+  add_index "event_invitation_emails", ["invitation_id"], :name => "fk_event_invitation_emails_invitation_id"
+  add_index "event_invitation_emails", ["status_id"], :name => "fk_event_invitation_emails_status_id"
+
+  create_table "event_invitation_statuses", :force => true do |t|
+    t.text "name",        :null => false
+    t.text "description", :null => false
+  end
+
+  create_table "event_invitations", :force => true do |t|
+    t.integer  "sender_id",  :null => false
+    t.integer  "event_id",   :null => false
+    t.text     "subject",    :null => false
+    t.text     "body",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_invitations", ["event_id"], :name => "fk_event_invitations_event_id"
+  add_index "event_invitations", ["sender_id"], :name => "fk_event_invitations_sender_id"
+
+  create_table "event_planners", :force => true do |t|
+    t.integer  "user_id",      :null => false
+    t.integer  "event_id",     :null => false
+    t.integer  "appointer_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_planners", ["appointer_id"], :name => "fk_event_planners_appointer_id"
+  add_index "event_planners", ["event_id"], :name => "fk_event_planners_event_id"
+  add_index "event_planners", ["user_id"], :name => "fk_event_planners_user_id"
+
+  create_table "event_visibilities", :force => true do |t|
+    t.string "name",        :null => false
+    t.string "description", :null => false
+  end
+
   create_table "events", :force => true do |t|
-    t.string   "title",        :null => false
-    t.text     "description",  :null => false
-    t.integer  "community_id", :null => false
+    t.string   "title",         :null => false
+    t.text     "description",   :null => false
+    t.integer  "community_id",  :null => false
+    t.integer  "creator_id",    :null => false
+    t.integer  "visibility_id", :null => false
     t.datetime "start_time"
     t.datetime "end_time"
     t.float    "cost"
@@ -74,6 +133,8 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
   end
 
   add_index "events", ["community_id"], :name => "fk_events_community_id"
+  add_index "events", ["creator_id"], :name => "fk_events_creator_id"
+  add_index "events", ["visibility_id"], :name => "fk_events_visibility_id"
 
   create_table "friendship_statuses", :force => true do |t|
     t.string "name",        :null => false
@@ -116,17 +177,21 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",         :null => false
-    t.string   "password",      :null => false
-    t.integer  "visibility_id", :null => false
+    t.string   "username",         :null => false
+    t.string   "password",         :null => false
+    t.integer  "primary_email_id", :null => false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "visibility_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "permission_id", :null => false
+    t.integer  "permission_id",    :null => false
     t.integer  "location_id"
   end
 
   add_index "users", ["location_id"], :name => "fk_users_location_id"
   add_index "users", ["permission_id"], :name => "fk_users_permission_id"
+  add_index "users", ["primary_email_id"], :name => "fk_users_primary_email_id"
   add_index "users", ["visibility_id"], :name => "fk_users_visibility_id"
 
 end

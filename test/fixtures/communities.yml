@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  type_id: 1
+  type: public
   location: 
 
 two:
   name: MyString
-  type_id: 2
+  type: private
   location: 

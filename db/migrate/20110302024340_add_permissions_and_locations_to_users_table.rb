@@ -8,10 +8,18 @@ class AddPermissionsAndLocationsToUsersTable < ActiveRecord::Migration
     add_column :users, :location_id, :integer
     add_foreign_key 'users', 'location_id', 'locations'
 
-    User.new(:email => 'admin@commboards.com', 
-             :password => 'admin1', 
-             :permission => Permission.admin,
-             :visibility => UserVisibility.private).save!
+    email = EmailAddress.new(:email => 'admin@eventhub.com')
+    email.save!
+
+    admin = User.new(:username => 'eh_admin', 
+                     :password => 'admin1234!', 
+                     :primary_email => email,
+                     :permission => Permission.admin,
+                     :visibility => UserVisibility.private)
+    admin.save!
+
+    email.user = admin
+    email.save!
   end
 
   def self.down

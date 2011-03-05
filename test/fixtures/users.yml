@@ -1,9 +1,22 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+admin:
+  username: eh_admin
+  password: admin1234!
+  primary_email: admin
+  permission: admin
+  visibility: private
+
 one:
-  email: test@example.com
+  username: user.one
   password: myPassword1
+  primary_email: one
+  permission: user
+  visibility: friends_only
 
 two:
-  email: test2@mysite.com
-  password: myPassword2
+  username: user2
+  password: testPassword2
+  primary_email: two
+  permission: regulator
+  visibility: public

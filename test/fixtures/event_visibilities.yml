@@ -1,0 +1,7 @@
+public:
+  name: public
+  description: All users can find this event, view it\'s details, and attend it. No restrictions.
+
+private:
+  name: private
+  description: Only invited users can find this event, view it\'s details, and attend it.

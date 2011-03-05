@@ -1,0 +1,7 @@
+sent:
+  name: sent
+  description: The invitation has been sent to the recipient, but they are yet to respond.
+
+responded_to:
+  name: responded_to
+  description: The invitation has been sent to the recipient, and they have responded to it.

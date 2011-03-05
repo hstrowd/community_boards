@@ -1,0 +1,15 @@
+attending:
+  name: attending
+  description: The user will be attending this event.
+
+tentative:
+  name: tentative
+  description: The user may or may not be attending this event.
+
+not_attending:
+  name: not_attending
+  description: The user will not be attending this event.
+
+unknown:
+  name: unknown
+  description: The user has been invited, but has not yet reponded.

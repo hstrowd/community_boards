@@ -1,4 +1,6 @@
 class UserVisibility < ActiveRecord::Base
+  validates_presence_of :name, :description
+
   Public = 'public'
   FriendsOnly = 'friend_only'
   Private = 'private'

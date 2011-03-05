@@ -1,0 +1,12 @@
+admin:
+  email: admin@eventhub.com
+  user: admin
+
+one:
+  email: test@example.com
+  user: one
+
+two:
+  email: test2@mysite.com
+  user: two
+  

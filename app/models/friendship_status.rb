@@ -1,4 +1,6 @@
 class FriendshipStatus < ActiveRecord::Base
+  validates_presence_of :name, :description
+
   Requested = 'requested'
   Accepted = 'accepted'
   Declined = 'declined'

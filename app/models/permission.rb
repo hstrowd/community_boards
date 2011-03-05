@@ -1,4 +1,6 @@
 class Permission < ActiveRecord::Base
+  validates_presence_of :name, :description
+
   Admin = 'admin'
   Regulator = 'regulator'
   User = 'user'

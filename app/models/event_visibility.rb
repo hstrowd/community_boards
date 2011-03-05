@@ -1,4 +1,4 @@
-class CommunityType < ActiveRecord::Base
+class EventVisibility < ActiveRecord::Base
   validates_presence_of :name, :description
 
   Public = 'public'

@@ -4,3 +4,6 @@ X Allow users to have friends
 - Track pagehits
 - Allow users to give feedback
 - give events outside links
+- include a tag cloud
+- Update all down migrations
+- rename associations to remove generic names like 'user'

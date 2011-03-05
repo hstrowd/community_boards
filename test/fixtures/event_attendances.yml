@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one: 
-  user: one
-  event: one
-  status_id: 1
+#one: 
+#  user: one
+#  event: one
+#  status_id: 1
 
-two: 
-  user: two
-  event: two
-  status_id: 2
+#two: 
+#  user: two
+#  event: two
+#  status_id: 2
