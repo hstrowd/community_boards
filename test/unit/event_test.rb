@@ -50,7 +50,6 @@ class EventTest < ActiveSupport::TestCase
     EventInvitation.send_invitation(@private_event, @inviter, 'Invitation', 'You\'re invited', [@user.primary_email])
     invitation_email = EventInvitationEmail.find_all_by_event_and_recipient(@private_event, @user).first
     assert_not_nil(invitation_email)
-    assert_equal(EventInvitationStatus.sent, invitation_email.status)
     @private_event.reload
 
     # Inviting a user should add them as an attendee.

@@ -5,9 +5,8 @@ class EventInvitationEmail < ActiveRecord::Base
           :through => :email,
           :foreign_key => 'user_id', 
           :class_name => 'User'
-  belongs_to :status, :class_name => 'EventInvitationStatus'
 
-  validates_presence_of :invitation, :email, :status
+  validates_presence_of :invitation, :email
 
   # TODO: Document me.
   def self.find_all_by_event_and_recipient(event, recipient)

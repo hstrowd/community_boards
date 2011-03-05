@@ -29,28 +29,15 @@ class CreateEventAttendances < ActiveRecord::Migration
     add_foreign_key 'event_invitations', 'event_id', 'events'
 
 
-    create_table :event_invitation_statuses do |t|
-      t.text :name, :null => false
-      t.text :description, :null => false
-    end
-
-    EventInvitationStatus.new(:name => EventInvitationStatus::Sent,
-                              :description => 'The invitation has been sent to the recipient, but they are yet to respond.').save!
-    EventInvitationStatus.new(:name => EventInvitationStatus::RespondedTo,
-                              :description => 'The invitation has been sent to the recipient, and they have responded to it.').save!
-
-
     create_table :event_invitation_emails do |t|
       t.integer :invitation_id, :null => false
       t.integer :email_id, :null => false
-      t.integer :status_id, :null => false
 
       t.timestamps
     end
 
     add_foreign_key 'event_invitation_emails', 'invitation_id', 'event_invitations'
     add_foreign_key 'event_invitation_emails', 'email_id', 'email_addresses'
-    add_foreign_key 'event_invitation_emails', 'status_id', 'event_invitation_statuses'
 
 
     create_table :event_attendances do |t|

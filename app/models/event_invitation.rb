@@ -63,8 +63,7 @@ class EventInvitation < ActiveRecord::Base
 
       if(!already_sent_today)
         email = EventInvitationEmail.new(:invitation => self, 
-                                         :email => email_address, 
-                                         :status => EventInvitationStatus.sent)
+                                         :email => email_address)
         email.save!
 
         # If a user exists for this email, create a tentative attendance for this event.

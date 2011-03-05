@@ -76,19 +76,12 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
   create_table "event_invitation_emails", :force => true do |t|
     t.integer  "invitation_id", :null => false
     t.integer  "email_id",      :null => false
-    t.integer  "status_id",     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "event_invitation_emails", ["email_id"], :name => "fk_event_invitation_emails_email_id"
   add_index "event_invitation_emails", ["invitation_id"], :name => "fk_event_invitation_emails_invitation_id"
-  add_index "event_invitation_emails", ["status_id"], :name => "fk_event_invitation_emails_status_id"
-
-  create_table "event_invitation_statuses", :force => true do |t|
-    t.text "name",        :null => false
-    t.text "description", :null => false
-  end
 
   create_table "event_invitations", :force => true do |t|
     t.integer  "sender_id",  :null => false
