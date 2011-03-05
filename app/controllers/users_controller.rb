@@ -1,5 +1,41 @@
 class UsersController < ApplicationController
-  before_filter :require_login, :except => [:new, :create]
+  before_filter :require_login, :except => [:new, :create, :login, :authenticate, :logout]
+
+  def login
+    respond_to do |format|
+      format.html # login.html.erb
+    end
+  end
+
+  def authenticate
+    if params[:login]
+      # Find records with this username and password
+      user = User.find(:first,
+                       :conditions => [ "email = ? and password = ?", 
+                                        params[:login][:email], 
+                                        params[:login][:password] ])
+ 
+      # Check whether this user exists or not
+      if user
+        # Create a session with users id
+        session[:user_id] = user.id
+        redirect_to :action => 'home', :id => user.id
+      else
+        flash[:notice] = "Invalid User/Password"
+        redirect_to :action => 'login'
+      end
+    else
+      flash[:notice] = "Login credentials required to log in."
+      redirect_to :action => 'login'
+    end
+  end
+
+  def logout
+    if session[:user_id]
+        reset_session
+        redirect_to :controller => 'application', :action=> 'index'
+    end
+  end
 
   def home
     user_id = session[:user_id]
@@ -90,7 +126,7 @@ class UsersController < ApplicationController
   # Prevents the current action from running if the user is not logged in.
   def require_login
     unless logged_in?
-      flash[:error] = "You must first log in."
+      flash[:notice] = "You must first log in."
       redirect_to :controller => 'application', :action => 'index' 
     end
   end

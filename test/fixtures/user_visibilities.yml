@@ -1,0 +1,11 @@
+public:
+  name: public
+  description: All other users can find this user, view this user\'s nickname, events, communities, etc, and request their friendship. No restricted information.
+
+friends_only:
+  name: friends_only
+  description: All other users can find this user and request their friendship, but only this user\'s friends can view their nickname, events, communities, etc.
+
+private:
+  name: private
+  description: No other users can find this user, view any of their information, or request their friendship.

@@ -1,2 +1,6 @@
 TODOs:
+X Allow users to have friends
 - Add the page title to the title of each page.
+- Track pagehits
+- Allow users to give feedback
+- give events outside links

@@ -7,9 +7,12 @@ class CreatePermissions < ActiveRecord::Migration
       t.timestamps
     end
 
-    Permission.new({:name => 'admin', :description => 'Site Administrator'}).save!
-    Permission.new({:name => 'regulator', :description => 'Content Regulator'}).save!
-    Permission.new({:name => 'user', :description => 'Standard User'}).save!
+    Permission.new(:name => Permission::Admin, 
+                   :description => 'Site Administrator').save!
+    Permission.new(:name => Permission::Regulator, 
+                   :description => 'Content Regulator').save!
+    Permission.new(:name => Permission::User, 
+                   :description => 'Standard User').save!
   end
 
   def self.down

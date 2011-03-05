@@ -2,8 +2,10 @@
 
 one:
   name: MyString
+  type_id: 1
   location: 
 
 two:
   name: MyString
+  type_id: 2
   location: 

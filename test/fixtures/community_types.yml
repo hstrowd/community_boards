@@ -1,0 +1,7 @@
+public:
+  name: public
+  description: A community that can be seen and joined by any user.
+
+private:
+  name: private
+  description: A community that can only be seen and joined users that have been invited by an owner of the community.

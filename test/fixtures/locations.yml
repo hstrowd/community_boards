@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  country: MyString
-  state: MyString
-  city: MyString
+  country_cd: USA
+  state_cd: IL
+  city: Chicago
 
 two:
-  country: MyString
-  state: MyString
-  city: MyString
+  country_cd: NZ
+  state_cd: ''
+  city: test city2

@@ -1,18 +1,23 @@
 CommunityBoards::Application.routes.draw do
-  resources :events
+  resources :events do
+    collection do
+      get 'search'
+    end
+  end
 
   resources :communities
 
-  resources :locations
+#  resources :locations
 
   resources :users do
     member do
       get 'home'
     end
+    collection do
+      get 'login'
+    end
   end
-
-  match 'application/logout' => 'application#logout'
-
+  
 #  match 'users/home' => 'users#home'
 
   # The priority is based upon order of creation:

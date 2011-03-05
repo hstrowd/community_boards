@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  email: MyString
-  password: 
+  email: test@example.com
+  password: myPassword1
 
 two:
-  email: MyString
-  password: 
+  email: test2@mysite.com
+  password: myPassword2

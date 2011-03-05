@@ -1,0 +1,11 @@
+admin:
+  name: admin
+  description: Site Administrator
+
+regulator:
+  name: regulator
+  description: Content Regulator
+
+user:
+  name: user
+  description: Standard User

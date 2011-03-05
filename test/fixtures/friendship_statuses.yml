@@ -1,0 +1,15 @@
+requested:
+  name: requested
+  description: The friendship has been requested, but not yet accepted.
+
+accepted:
+  name: accepted
+  description: The friendship has been requested and accepted.
+
+declined:
+  name: declined
+  description: The friendship has been requested, but was declined.
+
+broken:
+  name: broken
+  description: The friendship has been requested was accepted, but has been broken.

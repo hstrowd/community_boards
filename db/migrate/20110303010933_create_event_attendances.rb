@@ -6,11 +6,12 @@ class CreateEventAttendances < ActiveRecord::Migration
       t.string :status, :null => false
       t.string :description, :null => false
     end
-    EventAttendanceStatus.new({ :status => 'attending', 
+
+    EventAttendanceStatus.new({ :status => EventAttendanceStatus::Attending, 
                                 :description => 'The user will be attending this event.' })
-    EventAttendanceStatus.new({ :status => 'tentative', 
+    EventAttendanceStatus.new({ :status => EventAttendanceStatus::Tentative, 
                                 :description => 'The user may or may not be attending this event.' })
-    EventAttendanceStatus.new({ :status => 'not_attending', 
+    EventAttendanceStatus.new({ :status => EventAttendanceStatus::NotAttending, 
                                 :description => 'The user will not be attending this event.' })
 
     create_table :event_attendances do |t|
