@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :country_cd, "Country Code" %><br />
-    <%= f.text_field :country_cd %>
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
   </div>
   <div class="field">
     <%= f.label :state_cd, "State/Province Code"%><br />
     <%= f.text_field :state_cd %>
   </div>
-  <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
+  <div class="field hidden">
+    <%= f.hidden_field :country_cd, {:value => current_country_cd} %>
   </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

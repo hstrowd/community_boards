@@ -10,8 +10,12 @@
       </div>
       <div class="right">
         <ul>
-          <li class="right_nav_item"><%= link_to 'Login', '/users/login' %></li>
-          <li class="right_nav_item"><%= link_to 'Sign Up', :root %></li>
+	  <% if logged_in? %>
+	    <li class="right_nav_item"><%= link_to 'Logout', '/users/logout' %></li>
+	  <% else %>
+            <li class="right_nav_item"><%= link_to 'Login', '/users/login' %></li>
+            <li class="right_nav_item"><%= link_to 'Sign Up', new_user_path %></li>
+	  <% end %>
         </ul>
       </div>
     </div>

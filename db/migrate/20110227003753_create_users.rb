@@ -15,11 +15,11 @@ class CreateUsers < ActiveRecord::Migration
                        :description => 'No other users can find this user, view any of their information, or request their friendship.').save!
 
     create_table :users do |t|
-      t.string :username, :null => false
-      t.string :password, :null => false
+      t.string  :username, :null => false
+      t.string  :hashed_password, :null => false
+      t.string  :salt, :null => false
       t.integer :primary_email_id, :null => false
-      t.string :first_name
-      t.string :last_name
+      t.string  :full_name
       t.integer :visibility_id, :null => false
 
       t.timestamps

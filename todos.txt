@@ -1,9 +1,29 @@
 TODOs:
 X Allow users to have friends
+X Allow users to attend events
+X allow users to invite other users to attend events
+X allow users to register
+- Show users the events they are currently attending.
+- allow users to join communities
+X create the new user view.
+- Allow users to join multiple locations.
+- give events outside links
+- allow users to create communities
+- draw a model diagram
+- write a unit test for send invitation
+- add tagging
+- include a tag cloud
+- add reviewing
+- Allow users to view a calendar of their events
+- Allow users to give feedback
+- allow users to reset their passwords
+- rename associations to remove generic names like 'user'
+- Update all down migrations
+
+- Get a domain name.
+- Get hosting.
+- Release the app.
+
 - Add the page title to the title of each page.
 - Track pagehits
-- Allow users to give feedback
-- give events outside links
-- include a tag cloud
-- Update all down migrations
-- rename associations to remove generic names like 'user'
+- Add unit tests for all backend functionality

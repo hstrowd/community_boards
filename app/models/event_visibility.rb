@@ -11,4 +11,8 @@ class EventVisibility < ActiveRecord::Base
   def self.private
     find_by_name(Private)
   end
+
+  def to_s
+    self.name
+  end
 end

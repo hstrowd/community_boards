@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :location %><br />
-    <%= f.select :location_id, Location.all.collect { |loc| ["#{loc.city}#{(!loc.state_cd.blank? && ", #{loc.state_cd}") || ""}", loc.id] }, { :include_blank => 'None' } %>
+    <%= f.select :location_id, Location.all.collect { |loc| [loc.to_s, loc.id] }, { :include_blank => 'None' } %>
   </div>
   <div class="actions">
     <%= f.submit %>

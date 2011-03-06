@@ -7,14 +7,16 @@ CommunityBoards::Application.routes.draw do
 
   resources :communities
 
-#  resources :locations
+  resources :locations
 
   resources :users do
     member do
-      get 'home'
+      get 'set_location'
     end
     collection do
       get 'login'
+      get 'logout'
+      get 'authenticate'
     end
   end
   
@@ -72,7 +74,7 @@ CommunityBoards::Application.routes.draw do
   # root :to => "welcome#index"
 
   # See how all your routes lay out with "rake routes"
-  root :to => "application#index"
+  root :to => 'application#index'
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.

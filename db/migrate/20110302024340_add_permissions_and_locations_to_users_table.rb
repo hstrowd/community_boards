@@ -11,8 +11,10 @@ class AddPermissionsAndLocationsToUsersTable < ActiveRecord::Migration
     email = EmailAddress.new(:email => 'admin@eventhub.com')
     email.save!
 
-    admin = User.new(:username => 'eh_admin', 
-                     :password => 'admin1234!', 
+    admin = User.new(:full_name => 'Event Hub Admin',
+                     :username => 'eh_admin', 
+                     :password => 'admin1234!',
+                     :password_confirmation => 'admin1234!',
                      :primary_email => email,
                      :permission => Permission.admin,
                      :visibility => UserVisibility.private)
@@ -23,7 +25,7 @@ class AddPermissionsAndLocationsToUsersTable < ActiveRecord::Migration
   end
 
   def self.down
-    admin_user = User.find_by_email_and_password('admin@commboards.com', 'admin1')
+    admin_user = User.find_by_username('eh_admin')
     admin_user && admin_user.destroy
 
     drop_foreign_key 'users', 'permission_id'

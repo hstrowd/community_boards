@@ -1,22 +1,28 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 admin:
+  full_name: Event Hub Admin
   username: eh_admin
-  password: admin1234!
+  hashed_password: 3b99998259ffe2186902e189ff195c23cb0c17a7 # admin1234!
+  salt: admin_hash
   primary_email: admin
   permission: admin
   visibility: private
 
 one:
+  full_name: User One
   username: user.one
-  password: myPassword1
+  hashed_password: b24f0ecbb68a22e2af75c9abfa2f91b8a8e95943 # myPassword1
+  salt: one_1000
   primary_email: one
   permission: user
   visibility: friends_only
 
 two:
+  full_name: User Two
   username: user2
-  password: testPassword2
+  hashed_password: 9c9695331c64d87a7e98c6ff364690ec4fcf6027 # testPassword2
+  salt: two_2000
   primary_email: two
   permission: regulator
   visibility: public

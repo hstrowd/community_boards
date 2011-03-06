@@ -1,6 +1,62 @@
 <h1>Editing user</h1>
 
-<%= render 'form' %>
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', home_user_path(@user.id) %>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.text_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :visibility %><br />
+    <% UserVisibility.all.each do |vis| %>
+      <%= f.radio_button :visibility, vis.id %>
+      <%= f.label :visibility, vis.name.humanize  %>
+    <% end %>
+  </div>
+
+  <div class="location fields">
+    <div class="field hidden">
+      <%= hidden_field :location, :country_cd, {:value => current_country_cd} %>
+    </div>
+    <div class="field">
+      <%= label :location, :state_cd, "State Code" %><br />
+      <%= text_field :location, :state_cd, :size => 5 %>
+    </div>
+    <div class="field">
+      <%= label :location, :city, "City" %><br />
+      <%= text_field :location, :city %>
+    </div>
+  </div>
+
+  <div class="email_address fields">
+    <div class="field">
+      <%= f.text_field :primariy_email, {:value => @user.primary_email.email} %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Show', @user %> 

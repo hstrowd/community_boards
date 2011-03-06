@@ -171,10 +171,10 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
 
   create_table "users", :force => true do |t|
     t.string   "username",         :null => false
-    t.string   "password",         :null => false
+    t.string   "hashed_password",  :null => false
+    t.string   "salt",             :null => false
     t.integer  "primary_email_id", :null => false
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "full_name"
     t.integer  "visibility_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"

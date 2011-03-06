@@ -1,25 +1,14 @@
 class UsersController < ApplicationController
   before_filter :require_login, :except => [:new, :create, :login, :authenticate, :logout]
 
-  def login
-    respond_to do |format|
-      format.html # login.html.erb
-    end
-  end
-
   def authenticate
-    if params[:login]
-      # Find records with this username and password
-      user = User.find(:first,
-                       :conditions => [ "email = ? and password = ?", 
-                                        params[:login][:email], 
-                                        params[:login][:password] ])
- 
-      # Check whether this user exists or not
-      if user
+    if(params[:login][:username] && params[:login][:password])
+      # Authenticate the provided information
+      if(user = User.authenticate(params[:login][:username], params[:login][:password]))
         # Create a session with users id
         session[:user_id] = user.id
-        redirect_to :action => 'home', :id => user.id
+        session[:user] = user
+        redirect_to 'application/index'
       else
         flash[:notice] = "Invalid User/Password"
         redirect_to :action => 'login'
@@ -32,18 +21,26 @@ class UsersController < ApplicationController
 
   def logout
     if session[:user_id]
-        reset_session
-        redirect_to :controller => 'application', :action=> 'index'
+      reset_session
+      redirect_to :controller => 'application', :action=> 'index'
     end
   end
 
-  def home
-    user_id = session[:user_id]
-    @user = User.find_by_id(user_id)
-
-    respond_to do |format|
-      format.html # home.html.erb
-      format.xml  { render :xml => @user }
+  def set_location
+    @user = User.find_by_id(params[:id])
+    if(session[:user] == @user)
+      if(location = Location.find_by_id(params[:location]))
+        # TODO: Look into setting a temporary location. (i.e. is only tied to the current session)
+        @user.location = location
+        @user.save!
+        render 'application/home'
+      else
+        flash[:notice] = "The specified location could not be found. Please try again."
+        render 'application/home'
+      end
+    else
+      flash[:notice] = "Must be logged in to set a location."
+      render 'application/home'
     end
   end
 
@@ -77,10 +74,15 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.xml
   def create
+    email_address = params[:user].delete(:primary_email)
     @user = User.new(params[:user])
+    @user.visibility = UserVisibility.public
+    @user.permission = Permission.user
+    @user.primary_email = EmailAddress.find_or_create_by_email(email_address)
 
     respond_to do |format|
       if @user.save
+        session[:user_id] = @user.id
         format.html { redirect_to(@user, :notice => 'User was successfully created.') }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
@@ -118,14 +120,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # Identifies if a user is currently logged in.
-  def logged_in?
-    session[:user_id]
-  end
-
   # Prevents the current action from running if the user is not logged in.
   def require_login
-    unless logged_in?
+    unless session[:user_id]
       flash[:notice] = "You must first log in."
       redirect_to :controller => 'application', :action => 'index' 
     end

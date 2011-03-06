@@ -1,15 +1,24 @@
-<p id="notice"><%= notice %></p>
+<br/>
+  <b>Name:</b>
+  <%= @user.full_name %>
+<br/>
+  <b>Username:</b>
+  <%= @user.username %>
+<br/>
+  <% if(@user.email_addresses.size > 1) %>
+    <!-- TODO: Show multiple email addresses. -->
+  <% else %>
+    <b>Email Address:</b>
+    <%= @user.primary_email %>
+  <% end %>
+<br/>
+  <b>Location:</b>
+  <%= @user.location %>
+<br/>
+  <b>Visibility:</b>
+  <%= @user.visibility %>
+<br/>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-<p>
-  <b>Password:</b>
-  <%= @user.password %>
-</p>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', home_user_path(@user.id) %>
+<%= link_to 'Edit', edit_user_path(@user) %> 

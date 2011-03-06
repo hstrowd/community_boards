@@ -1,9 +1,4 @@
-<%= form_tag :controller => 'user', :action => 'authenticate' %>
-
-Email: <%= text_field("login", "email",:size=>"20" ) %>
-<br/>
-Password: <%= password_field("login", "password",:size=>"20" ) %>
+<%= form_tag :controller => 'users', :action => 'authenticate' %>
+<%= label(:login, :username) %>: <%= text_field(:login, :username, :size => 20) %><br/>
+<%= label(:login, :password) %>: <%= password_field(:login, :password, :size => 20) %><br/>
 <input type="submit" value="Login" />
-
-<br/>
-<%= link_to "Create Account", new_user_path %>
