@@ -1,21 +1,17 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  title: MyString
-  description: MyText
-  community: one
-  creator: one
-  visibility: public
+one_one:
+  event_series: one
   start_time: 2011-02-27 16:01:01
   end_time: 2011-02-27 16:01:01
   cost: 1
 
-two:
-  title: MyString
-  description: MyText
-  community: two
-  creator: two
-  visibility: private
+one_two:
+  event_series: one
+  start_time: 2011-02-28 00:00:00
+
+two_one:
+  event_series: two
   start_time: 2011-02-27 16:01:01
   end_time: 2011-02-27 16:01:01
   cost: 1

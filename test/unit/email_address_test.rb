@@ -5,10 +5,9 @@ class EmailAddressTest < ActiveSupport::TestCase
     email = EmailAddress.new
     %w(john john@example -john@example.com _john@example.com john!@example.com 
        john(smith)doe@example.com john+doe@example.com john%doe@example.com john.@example.com
-       john&doe@example.com john@doe@example.com -john@example.com 
-       john..@example.com john@_example.com john@-example.com john@..com john@example..com 
-       john@example.commm john@example.c john@example.123 john@example.n_t).
-      each do |email_address|
+       john&doe@example.com john@doe@example.com -john@example.com john..@example.com 
+       john@_example.com john@-example.com john@..com john@example..com john@example.commm 
+       john@example.c john@example.123 john@example.n_t).each do |email_address|
       email.email = email_address
       assert(!email.valid?, "#{email_address} should not be a valid email, but is being accepted.")
     end

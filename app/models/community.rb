@@ -6,5 +6,5 @@ class Community < ActiveRecord::Base
   belongs_to :type, :class_name => 'CommunityType'
   has_many :community_members, :dependent => :destroy
   has_many :users, :through => :community_members
-  has_many :events, :dependent => :destroy
+  has_many :event_series, :dependent => :destroy
 end

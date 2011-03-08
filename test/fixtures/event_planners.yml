@@ -1,7 +1,7 @@
 one:
   user: one
-  event: one
+  event_series: one
 
 two:
   user: two
-  event: two
+  event_series: two

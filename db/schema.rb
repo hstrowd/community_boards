@@ -96,16 +96,30 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
   add_index "event_invitations", ["sender_id"], :name => "fk_event_invitations_sender_id"
 
   create_table "event_planners", :force => true do |t|
-    t.integer  "user_id",      :null => false
-    t.integer  "event_id",     :null => false
-    t.integer  "appointer_id", :null => false
+    t.integer  "user_id",         :null => false
+    t.integer  "event_series_id", :null => false
+    t.integer  "appointer_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "event_planners", ["appointer_id"], :name => "fk_event_planners_appointer_id"
-  add_index "event_planners", ["event_id"], :name => "fk_event_planners_event_id"
+  add_index "event_planners", ["event_series_id"], :name => "fk_event_planners_event_series_id"
   add_index "event_planners", ["user_id"], :name => "fk_event_planners_user_id"
+
+  create_table "event_series", :force => true do |t|
+    t.string   "title",         :null => false
+    t.text     "description",   :null => false
+    t.integer  "community_id",  :null => false
+    t.integer  "creator_id",    :null => false
+    t.integer  "visibility_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_series", ["community_id"], :name => "fk_event_series_community_id"
+  add_index "event_series", ["creator_id"], :name => "fk_event_series_creator_id"
+  add_index "event_series", ["visibility_id"], :name => "fk_event_series_visibility_id"
 
   create_table "event_visibilities", :force => true do |t|
     t.string "name",        :null => false
@@ -113,21 +127,15 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
   end
 
   create_table "events", :force => true do |t|
-    t.string   "title",         :null => false
-    t.text     "description",   :null => false
-    t.integer  "community_id",  :null => false
-    t.integer  "creator_id",    :null => false
-    t.integer  "visibility_id", :null => false
-    t.datetime "start_time"
+    t.integer  "event_series_id", :null => false
+    t.datetime "start_time",      :null => false
     t.datetime "end_time"
     t.float    "cost"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "events", ["community_id"], :name => "fk_events_community_id"
-  add_index "events", ["creator_id"], :name => "fk_events_creator_id"
-  add_index "events", ["visibility_id"], :name => "fk_events_visibility_id"
+  add_index "events", ["event_series_id"], :name => "fk_events_event_series_id"
 
   create_table "friendship_statuses", :force => true do |t|
     t.string "name",        :null => false

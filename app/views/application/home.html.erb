@@ -3,7 +3,7 @@ Hello, <%= @user.username %>!
 <% if(!@user.location) %>
   <div id='select_location'> 
     Select your location to see events happening in your area!
-    <%= form_tag(set_location_user_path(@user), :method => 'get') do |f| %>
+    <%= form_tag(set_location_user_path(@user), :method => 'post') do |f| %>
       <div class="field">
         <%= label_tag :location, 'Location' %>: <%= select_tag :location, options_for_select(Location.all.collect { |loc| [loc.to_s, loc.id] }), {:include_blank => 'Select...'} %><br/>
 	<%= submit_tag 'Set Location' %>

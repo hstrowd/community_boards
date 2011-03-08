@@ -1,5 +1,5 @@
-class UsersController < ApplicationController
-  before_filter :require_login, :except => [:new, :create, :login, :authenticate, :logout]
+class UsersController < EventHubController
+  before_filter :login_filter, :except => [:new, :create, :login, :authenticate, :logout]
 
   def authenticate
     if(params[:login][:username] && params[:login][:password])
@@ -119,13 +119,4 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
-  # Prevents the current action from running if the user is not logged in.
-  def require_login
-    unless session[:user_id]
-      flash[:notice] = "You must first log in."
-      redirect_to :controller => 'application', :action => 'index' 
-    end
-  end
-  private :require_login
 end

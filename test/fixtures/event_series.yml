@@ -1,0 +1,13 @@
+one:
+  title: MyString
+  description: MyText
+  community: one
+  creator: one
+  visibility: public
+
+two:
+  title: MyString
+  description: MyText
+  community: two
+  creator: two
+  visibility: private

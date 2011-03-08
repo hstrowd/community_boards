@@ -4,10 +4,12 @@ class Location < ActiveRecord::Base
 
   validates_presence_of :country_cd, :city
 
-  def before_save
+  before_save :correct_case
+
+  def correct_case
     self.country_cd.upcase!
     self.state_cd.upcase!
-    self.city = self.city.humanize.titleize
+    self.city.downcase!
   end
 
   def to_s(include_country=false)

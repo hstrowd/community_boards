@@ -1,4 +1,15 @@
-class EventsController < ApplicationController
+class EventsController < EventHubController
+  before_filter :login_filter, :except => [:show]
+  
+  def import
+    if(params[:import_file])
+      Event.import(session[:user], params[:import_file])
+    else
+      flash[:notice] = 'Must provide a file to import.'
+      render import_file_events_path
+    end
+  end
+
   # GET /events
   # GET /events.xml
   def index

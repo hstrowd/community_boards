@@ -22,7 +22,7 @@ class EventInvitation < ActiveRecord::Base
   # Return:
   # * See #send_to
   def self.send_invitation(event, sender, subject, body, email_addresses = [])
-    if(event.planners.include?(sender))
+    if(event.event_series.planners.include?(sender))
       if(!subject.empty? && !body.empty?)
         invitation = new(:event => event, :sender => sender, :subject => subject, :body => body)
         invitation.save!

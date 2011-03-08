@@ -2,6 +2,8 @@ CommunityBoards::Application.routes.draw do
   resources :events do
     collection do
       get 'search'
+      post 'import'
+      get 'import_form'
     end
   end
 
@@ -11,7 +13,7 @@ CommunityBoards::Application.routes.draw do
 
   resources :users do
     member do
-      get 'set_location'
+      post 'set_location'
     end
     collection do
       get 'login'

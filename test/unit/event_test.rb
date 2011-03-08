@@ -2,8 +2,8 @@ require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
   setup do
-    @public_event = events(:one)
-    @private_event = events(:two)
+    @public_event = events(:one_one)
+    @private_event = events(:two_one)
     @user = users(:one)
     @inviter = users(:two)
   end
@@ -13,7 +13,7 @@ class EventTest < ActiveSupport::TestCase
     # Should have no attendees to start with.
     assert_equal([], @public_event.attendees)
 
-    assert_equal(EventVisibility.public, @public_event.visibility)
+    assert_equal(EventVisibility.public, @public_event.event_series.visibility)
 
     # Should not be able to add an attendee with not_attending status.
     assert_nil(@public_event.add_attendee(@user, EventAttendanceStatus.not_attending))
