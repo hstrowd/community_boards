@@ -12,68 +12,6 @@ class Event < ActiveRecord::Base
            :through => :attendances,
            :source => :user
 
-  def self.import(creator, community, import_file)
-    required_attrs = %w(title city)
-    series_attrs = %w(title description visibility)
-    event_attrs = %w(start_time end_time cost)
-
-    data = import_file.read
-#    logger.info("User #{creator.id} is uploading file #{import_file.inspect} which contains #{data}.")
-    
-    rows = CSV.parse(data)
-    logger.info("This was broken into rows: #{rows.inspect}.")
-
-    attributes = rows[0]
-    logger.info("User #{creator.id} is attempting to upload data with headers: #{attributes.inspect}.")
-
-    if((attributes & required_attrs).eql?(required_attrs))
-      (rows.size - 1).times do |index|
-        begin
-          event_data = row[index]
-
-          if(community.private? && !community.members.include?(creator))
-            # If unathorized, skip this event.
-            logger.warn("User #{creator.id} attempted to create events for community #{community.id}, but is not a member.")
-            next
-          end
-
-          # Create the Series for this event.
-          series_data = series_attrs.inject({}) do |attr, series_hash|
-            attr_index = attributes.index(attr)
-            series_hash[attr] = row[attr_index] if attr_index
-            series_hash
-          end
-          series_data['visibility'] = Visibility.find_by_name(series_data['visibility']) if series_data['visibility']
-          series_data['creator'] = creator
-
-          unless(series = EventSeries.find(:first, :conditions => series_data))
-            series = EventSeries.new(series_data)
-            series.save!
-          end
-
-          # Create the event.
-          event_data = event_attrs.inject({}) do |attr, event_hash|
-            attr_index = attributes.index(attr)
-            event_hash[attr] = row[attr_index] if attr_index
-            event_hash
-          end
-          event_data['start_time'] = Time.rfc2822(event_data['start_time']) if event_data['start_time']
-          event_data['end_time'] = Time.rfc2822(event_data['end_time']) if event_data['end_time']
-
-          event = Event.new(event_data)
-          event.save!
-        rescue Exception => exp
-          logger.warn("Error encountered during import of #{row.inspec}: #{exp.message}\n  Backtrace: #{exp.backtrace * "\n"}")
-        end
-      end
-    else
-      loogger.warn("User #{creator.id} uploaded file #{import_file.inspect} which had improper headers.\n  Uploaded Data: #{data}.")
-    end
-
-    # TODO: perform import
-#    logger.info("User #{creator.id} is uploading file #{import_file.inspect} which contains #{data}.")
-  end
-
   # TODO: Break down this method.
   # Adds a User to the list of attendees for this Event. An attendee can only be added to an
   # Event if:

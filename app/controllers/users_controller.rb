@@ -47,8 +47,7 @@ class UsersController < EventHubController
     end
   end
 
-  # GET /users/1
-  # GET /users/1.xml
+  # GET /users/
   def show
     @user = User.find(params[:id])
 
@@ -59,7 +58,6 @@ class UsersController < EventHubController
   end
 
   # GET /users/new
-  # GET /users/new.xml
   def new
     @user = User.new
 
@@ -69,13 +67,7 @@ class UsersController < EventHubController
     end
   end
 
-  # GET /users/1/edit
-  def edit
-    @user = User.find(params[:id])
-  end
-
   # POST /users
-  # POST /users.xml
   def create
     email_address = params[:user].delete(:primary_email)
     @user = User.new(params[:user])
@@ -86,8 +78,7 @@ class UsersController < EventHubController
     respond_to do |format|
       if @user.save
         session[:user] = @user
-        format.html { redirect_to(@user, :notice => 'User was successfully created.') }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
+        render :controller => 'application', :action => 'index'
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
@@ -95,8 +86,12 @@ class UsersController < EventHubController
     end
   end
 
+  # GET /users/1/edit
+  def edit
+    @user = User.find(params[:id])
+  end
+
   # PUT /users/1
-  # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
 
@@ -112,7 +107,6 @@ class UsersController < EventHubController
   end
 
   # DELETE /users/1
-  # DELETE /users/1.xml
   def destroy
     @user = User.find(params[:id])
     @user.destroy

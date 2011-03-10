@@ -1,6 +1,6 @@
 <%= form_tag(import_events_path, :multipart => true) do |f| %>
   <div class="field">
-    <%= label_tag :community, 'Community for events:' %> <%= select_tag :community, options_for_select(Community.all.collect { |community| [community.to_s, community.id] }), {:include_blank => 'Select...'} %><br/>
+    <%= label_tag :community_id, 'Community for events:' %> <%= select_tag :community_id, options_for_select(Community.all.collect { |community| [community.to_s, community.id] }), {:include_blank => 'Select...'} %><br/>
   </div>
 
   <div class="field">

@@ -2,12 +2,20 @@ class EventsController < EventHubController
   before_filter :login_filter, :except => [:show]
   
   def import
-    if(params[:import_file])
-      Event.import(session[:user], params[:import_file])
+    if(params[:community_id] && params[:import_file])
+      community = Community.find_by_id(params[:community_id])
+
+      if community
+        EventImport.import(params[:import_file], community, session[:user])
+        # TODO: validate the results
+        flash[:notice] = "The provided events have been added to the #{community} community."
+      else
+        flash[:notice] = 'Unable to find the specified community.'
+      end
     else
-      flash[:notice] = 'Must provide a file to import.'
-      render import_file_events_path
+      flash[:notice] = 'Must specify both a file to import and the community to which these events should be imported.'
     end
+    render import_form_events_path
   end
 
   # GET /events

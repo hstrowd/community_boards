@@ -4,16 +4,20 @@ class Location < ActiveRecord::Base
 
   validates_presence_of :country_cd, :city
 
-  after_initialize :correct_case
+  def self.correct_case(attributes)
+    attributes['city'] = attributes['city'].downcase.titleize if attributes['city']
+    attributes['state_cd'].upcase! if attributes['state_cd']
+    attributes['country_cd'].upcase! if attributes['country_cd']
+    attributes
+  end
 
   def self.find_or_create(attributes)
     if(!attributes['state_cd'].blank?)
       location = find_by_city_and_state_cd_and_country_cd(attributes['city'], 
                                                           attributes['state_cd'], 
-                                                          attributes['country'])
+                                                          attributes['country_cd'])
     else
-      attributes.delete('state_cd')
-      location = find_by_city_and_country_cd(attributes)
+      location = find_by_city_and_country_cd(attributes['city'], attributes['country_cd'])
     end
 
 
@@ -22,14 +26,8 @@ class Location < ActiveRecord::Base
     location
   end
 
-  def correct_case
-    self.country_cd.upcase!
-    self.state_cd.upcase!
-    self.city = self.city.downcase.titleize
-  end
-
   def to_s(include_country=false)
-    str = city
+    str = city.dup
     if state_cd
       str << ", #{state_cd}"
     end

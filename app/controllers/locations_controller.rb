@@ -40,7 +40,7 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.xml
   def create
-    @location = Location.new(params[:location])
+    @location = Location.new(Location.correct_case(params[:location]))
 
     respond_to do |format|
       if @location.save
@@ -59,7 +59,7 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
 
     respond_to do |format|
-      if @location.update_attributes(params[:location])
+      if @location.update_attributes(Location.correct_case(params[:location]))
         format.html { redirect_to(@location, :notice => 'Location was successfully updated.') }
         format.xml  { head :ok }
       else

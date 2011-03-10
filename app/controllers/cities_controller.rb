@@ -19,7 +19,7 @@ class CitiesController < CommunitiesController
   end
 
   def create
-    location = Location.find_or_create(params[:location])
+    location = Location.find_or_create(Location.correct_case(params[:location]))
     @city = City.new({ :name => location.to_s, 
                        :location => location, 
                        :visibility => CommunityVisibility.public })
