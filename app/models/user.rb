@@ -5,8 +5,6 @@ class User < ActiveRecord::Base
   belongs_to :permission
   belongs_to :visibility, :class_name => 'UserVisibility'
 
-  belongs_to :location
-
   has_many :community_members, :dependent => :destroy
   has_many :communities, :through => :community_members
 
@@ -79,7 +77,12 @@ class User < ActiveRecord::Base
   def friendships
     (friendships_as_initiator + friendships_as_recipient)
   end
-  
+
+
+  # ------------------------
+  #   Password Management
+  # ------------------------
+
   def password=(new_password)
     @password = new_password
     self.salt = User.random_string(10) if !self.salt
@@ -112,14 +115,10 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate(username, password)
-    # Find records with this username
-    user = find_by_username(username)
-
     # Check whether this user exists and verify the provided password.
-    if(user && user.hashed_password = User.encrypt(password, user.salt))
+    if((user = find_by_username(username)) && 
+       (user.hashed_password = User.encrypt(password, user.salt)))
       user
-    else
-      nil
     end
   end
 end

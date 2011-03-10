@@ -1,0 +1,24 @@
+<% if(@user)%>
+  Hello, <%= @user.username %>!
+
+  <% if(@user.communities.empty?) %>
+    <div id='select_location'> 
+      Set your city to see events happening in your area!
+      <%= form_tag(add_community_user_path(@user), :method => 'post') do |f| %>
+        <div class="field">
+          <%= label_tag :city %>: <%= select_tag :community, options_for_select(City.all.collect { |city| [city.to_s, city.id] }), {:include_blank => 'Select...'} %><br/>
+	  <%= submit_tag 'Set City' %>
+        </div>
+      <% end %>
+      <br/>
+      <!-- Make this an AJAX popup. --> 
+      Can't find your city? <%= link_to 'Add it.', new_city_path %>
+    </div>
+  <% end %>
+
+  <br/>
+  <%= link_to "View Account", user_path(@user) %>
+  <br/>
+<% else %>
+  Welcome to EventHub!
+<% end %>

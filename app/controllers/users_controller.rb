@@ -6,9 +6,8 @@ class UsersController < EventHubController
       # Authenticate the provided information
       if(user = User.authenticate(params[:login][:username], params[:login][:password]))
         # Create a session with users id
-        session[:user_id] = user.id
         session[:user] = user
-        redirect_to 'application/index'
+        redirect_to :controller => 'application', :action => 'index'
       else
         flash[:notice] = "Invalid User/Password"
         redirect_to :action => 'login'
@@ -20,27 +19,31 @@ class UsersController < EventHubController
   end
 
   def logout
-    if session[:user_id]
+    if logged_in?
       reset_session
-      redirect_to :controller => 'application', :action=> 'index'
     end
+    redirect_to :controller => 'application', :action=> 'index'
   end
 
-  def set_location
-    @user = User.find_by_id(params[:id])
-    if(session[:user] == @user)
-      if(location = Location.find_by_id(params[:location]))
-        # TODO: Look into setting a temporary location. (i.e. is only tied to the current session)
-        @user.location = location
-        @user.save!
-        render 'application/home'
+  def add_community
+    user = session[:user]
+    if(user == User.find_by_id(params[:id]))
+      if(community = Community.find_by_id(params[:community]))
+        # TODO: Look into setting a temporary community. (i.e. is only tied to the current session)
+        user.communities << community
+        if user.save
+          redirect_to :controller => 'application', :action => 'index'
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => user.errors, :status => :unprocessable_entity }
+        end
       else
-        flash[:notice] = "The specified location could not be found. Please try again."
-        render 'application/home'
+        flash[:notice] = "The specified community could not be found. Please try again."
+        redirect_to :controller => 'application', :action => 'index'
       end
     else
-      flash[:notice] = "Must be logged in to set a location."
-      render 'application/home'
+      flash[:notice] = "Must be logged in to set a community."
+      redirect_to :controller => 'application', :action => 'index'
     end
   end
 
@@ -82,7 +85,7 @@ class UsersController < EventHubController
 
     respond_to do |format|
       if @user.save
-        session[:user_id] = @user.id
+        session[:user] = @user
         format.html { redirect_to(@user, :notice => 'User was successfully created.') }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else

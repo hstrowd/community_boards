@@ -1,4 +1,15 @@
 class CommunitiesController < ApplicationController
+  def new_physical
+    @community = Community.new
+    @community.location = Location.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @community }
+    end
+  end
+
+
   # GET /communities
   # GET /communities.xml
   def index

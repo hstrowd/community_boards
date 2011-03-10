@@ -1,6 +1,10 @@
 <%= form_tag(import_events_path, :multipart => true) do |f| %>
   <div class="field">
-    <%= label_tag :import_file, 'File to import' %>: <%= file_field_tag :import_file %><br/>
-    <%= submit_tag 'Import Events' %>
+    <%= label_tag :community, 'Community for events:' %> <%= select_tag :community, options_for_select(Community.all.collect { |community| [community.to_s, community.id] }), {:include_blank => 'Select...'} %><br/>
   </div>
+
+  <div class="field">
+    <%= label_tag :import_file, 'File to import:' %> <%= file_field_tag :import_file %><br/>
+  </div>
+  <%= submit_tag 'Import Events' %>
 <% end %>

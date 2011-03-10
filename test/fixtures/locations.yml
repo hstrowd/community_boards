@@ -1,6 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+chicago:
   country_cd: USA
   state_cd: IL
   city: Chicago

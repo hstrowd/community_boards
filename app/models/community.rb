@@ -1,10 +1,19 @@
 class Community < ActiveRecord::Base
-  validates_presence_of :name
-
-  belongs_to :owner, :class_name => 'Users'
+  belongs_to :owner, :class_name => 'User'
   belongs_to :location
-  belongs_to :type, :class_name => 'CommunityType'
+  belongs_to :visibility, :class_name => 'CommunityVisibility'
   has_many :community_members, :dependent => :destroy
-  has_many :users, :through => :community_members
+  has_many :members, :through => :community_members, :class_name => 'User'
   has_many :event_series, :dependent => :destroy
+
+  validates_presence_of :name
+  validates_inclusion_of :type, :in => %w(City)
+
+  def public?
+    visibility.eql?(CommunityVisibility.public)
+  end
+
+  def private?
+    visibility.eql?(CommunityVisibility.private)
+  end
 end

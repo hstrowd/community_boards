@@ -7,13 +7,20 @@ CommunityBoards::Application.routes.draw do
     end
   end
 
-  resources :communities
+  resources :communities do
+    collection do
+      get 'new_physical'
+    end
+  end
+
+  resources :cities
+  resources :virtual_communities
 
   resources :locations
 
   resources :users do
     member do
-      post 'set_location'
+      post 'add_community'
     end
     collection do
       get 'login'

@@ -35,20 +35,6 @@
     <% end %>
   </div>
 
-  <div class="location fields">
-    <div class="field hidden">
-      <%= hidden_field :location, :country_cd, {:value => current_country_cd} %>
-    </div>
-    <div class="field">
-      <%= label :location, :state_cd, "State Code" %><br />
-      <%= text_field :location, :state_cd, :size => 5 %>
-    </div>
-    <div class="field">
-      <%= label :location, :city, "City" %><br />
-      <%= text_field :location, :city %>
-    </div>
-  </div>
-
   <div class="email_address fields">
     <div class="field">
       <%= f.text_field :primariy_email, {:value => @user.primary_email.email} %>

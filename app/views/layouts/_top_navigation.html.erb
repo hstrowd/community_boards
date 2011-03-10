@@ -11,9 +11,9 @@
       <div class="right">
         <ul>
 	  <% if logged_in? %>
-	    <li class="right_nav_item"><%= link_to 'Logout', '/users/logout' %></li>
+	    <li class="right_nav_item"><%= link_to 'Logout', logout_users_path %></li>
 	  <% else %>
-            <li class="right_nav_item"><%= link_to 'Login', '/users/login' %></li>
+            <li class="right_nav_item"><%= link_to 'Login', login_users_path %></li>
             <li class="right_nav_item"><%= link_to 'Sign Up', new_user_path %></li>
 	  <% end %>
         </ul>

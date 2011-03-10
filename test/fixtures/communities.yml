@@ -2,10 +2,12 @@
 
 one:
   name: MyString
-  type: public
-  location: 
+  type: City
+  visibility: public
+  location: chicago
 
 two:
   name: MyString
-  type: private
+  type: 
+  visibility: private
   location: 

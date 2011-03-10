@@ -1,0 +1,11 @@
+<br/>
+  <b>City:</b>
+  <%= @city.location.city %>
+<% if !@city.location.state_cd.empty? %>
+  <br/>
+    <b>State:</b>
+    <%= @city.location.state_cd %>
+<% end %>
+<br/>
+
+

@@ -5,9 +5,6 @@ class AddPermissionsAndLocationsToUsersTable < ActiveRecord::Migration
     add_column :users, :permission_id, :integer, :null => false
     add_foreign_key 'users', 'permission_id', 'permissions'
 
-    add_column :users, :location_id, :integer
-    add_foreign_key 'users', 'location_id', 'locations'
-
     email = EmailAddress.new(:email => 'admin@eventhub.com')
     email.save!
 

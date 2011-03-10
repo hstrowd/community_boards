@@ -10,12 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110303010933) do
+ActiveRecord::Schema.define(:version => 20110308050846) do
 
   create_table "communities", :force => true do |t|
-    t.string   "name",        :null => false
+    t.string   "name",          :null => false
     t.integer  "location_id"
-    t.integer  "type_id",     :null => false
+    t.string   "type"
+    t.integer  "visibility_id", :null => false
     t.integer  "creator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -23,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
 
   add_index "communities", ["creator_id"], :name => "fk_communities_creator_id"
   add_index "communities", ["location_id"], :name => "fk_communities_location_id"
+  add_index "communities", ["visibility_id"], :name => "fk_communities_visibility_id"
 
   create_table "community_members", :force => true do |t|
     t.integer  "user_id",      :null => false
@@ -40,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
     t.string "description", :null => false
   end
 
-  create_table "community_types", :force => true do |t|
+  create_table "community_visibilities", :force => true do |t|
     t.string "name",        :null => false
     t.string "description", :null => false
   end
@@ -172,6 +174,16 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
     t.datetime "updated_at"
   end
 
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
   create_table "user_visibilities", :force => true do |t|
     t.string "name",        :null => false
     t.string "description", :null => false
@@ -187,10 +199,8 @@ ActiveRecord::Schema.define(:version => 20110303010933) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "permission_id",    :null => false
-    t.integer  "location_id"
   end
 
-  add_index "users", ["location_id"], :name => "fk_users_location_id"
   add_index "users", ["permission_id"], :name => "fk_users_permission_id"
   add_index "users", ["primary_email_id"], :name => "fk_users_primary_email_id"
   add_index "users", ["visibility_id"], :name => "fk_users_visibility_id"

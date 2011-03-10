@@ -1,4 +1,8 @@
+require 'csv'
+
 class EventSeries < ActiveRecord::Base
+  include ApplicationHelper
+
   belongs_to :community
   belongs_to :creator, :class_name => 'User'
   belongs_to :visibility, :class_name => 'EventVisibility'
@@ -16,12 +20,6 @@ class EventSeries < ActiveRecord::Base
   # The set of planners must include the creator, so that they are able to add more planners.
   validates_each :planners do |model, attr, value|
     value.include?(model.creator)
-  end
-
-  def self.import(user, import_file)
-    data = import_file.read
-    # TODO: perform import
-#    logger.info("User #{user.id} is uploading file #{import_file.inspect} which contains #{data}.")
   end
 
   # Adds a user to the set of planners for this event. Only other planners are able to 
