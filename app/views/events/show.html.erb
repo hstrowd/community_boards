@@ -2,11 +2,16 @@
 
 <p>
   <b>Title:</b>
-  <%= @event.title %>
+  <%= @event.series.title %>
 </p>
 
 <p>
-  <b>Description:</b>
+  <b>Series Description:</b>
+  <%= @event.series.description %>
+</p>
+
+<p>
+  <b>Event Description:</b>
   <%= @event.description %>
 </p>
 
@@ -31,5 +36,4 @@
 </p>
 
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'Edit', edit_event_path(@event) %> 

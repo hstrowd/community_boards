@@ -1,17 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @community.name %>
-</p>
+<div id='page_title'>
+  <% @community %>
+</div>
 
-<% if @community.location %>
-  <p>
-    <b>Location:</b>
-    <%= link_to "#{@community.location.city}#{(!@community.location.state_cd.blank? && ", #{@community.location.state_cd}") || ""}", @community.location %>
-  </p>
-<% end %>
+<div id='events_list'>
+  <% if(!@community.events.empty?) %>
+    <ul>
+      <% @community.events.each do |event| %>
+	<li><%= link_to event, event_path(event) %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    This community currently has no events registered for it. <%= link_to "Add one", new_event_path %>.
+  <% end %>
+<div>
 
 
-<%= link_to 'Edit', edit_community_path(@community) %> |
-<%= link_to 'Back', communities_path %>
+

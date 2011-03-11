@@ -127,10 +127,10 @@ ActiveRecord::Schema.define(:version => 20110308050846) do
   end
 
   create_table "events", :force => true do |t|
-    t.integer  "event_series_id", :null => false
+    t.integer  "series_id",    :null => false
     t.text     "description"
-    t.integer  "community_id",    :null => false
-    t.datetime "start_time",      :null => false
+    t.integer  "community_id", :null => false
+    t.datetime "start_time",   :null => false
     t.datetime "end_time"
     t.float    "cost"
     t.datetime "created_at"
@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(:version => 20110308050846) do
   end
 
   add_index "events", ["community_id"], :name => "fk_events_community_id"
-  add_index "events", ["event_series_id"], :name => "fk_events_event_series_id"
+  add_index "events", ["series_id"], :name => "fk_events_series_id"
 
   create_table "friendship_statuses", :force => true do |t|
     t.string "name",        :null => false

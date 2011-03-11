@@ -1,5 +1,7 @@
 <% if(@user)%>
-  Hello, <%= @user.username %>!
+  <div id='welcome'>
+    Hello, <%= @user.username %>!
+  </div>
 
   <% if(@user.communities.empty?) %>
     <div id='select_location'> 
@@ -14,6 +16,13 @@
       <!-- Make this an AJAX popup. --> 
       Can't find your city? <%= link_to 'Add it.', new_city_path %>
     </div>
+  <% else %>
+    Check out events going on in your communities:
+    <ul>
+    <% @user.communities.each do |community| %>
+      <li><%= link_to community, community %></li>
+    <% end %>
+    </ul>
   <% end %>
 
   <br/>

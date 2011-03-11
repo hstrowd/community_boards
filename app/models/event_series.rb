@@ -40,6 +40,6 @@ class EventSeries < ActiveRecord::Base
   end
 
   def to_s
-    "#{title} in #{community.location}"
+    "#{title}"
   end
 end

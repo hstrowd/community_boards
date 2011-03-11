@@ -28,7 +28,7 @@ class CreateEvents < ActiveRecord::Migration
 
 
     create_table :events do |t|
-      t.integer :event_series_id, :null => false
+      t.integer :series_id, :null => false
       t.text :description
       t.integer :community_id, :null => false
       t.datetime :start_time, :null => false
@@ -39,7 +39,7 @@ class CreateEvents < ActiveRecord::Migration
     end
 
     add_foreign_key 'events', 'community_id', 'communities'
-    add_foreign_key 'events', 'event_series_id', 'event_series'
+    add_foreign_key 'events', 'series_id', 'event_series'
 
 
     create_table :event_planners do |t|

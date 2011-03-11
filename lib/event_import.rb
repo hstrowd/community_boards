@@ -64,7 +64,7 @@ module EventImport
       series = find_or_create_series(series_data)
 
       # Identify the Instance data of this event.
-      instance_data = { 'event_series_id' => series.id,
+      instance_data = { 'series_id' => series.id,
                         'description' => content['instance_description'],
                         'community_id' => community.id,
                         'cost' => content['cost'],

@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  belongs_to :event_series
+  belongs_to :series, :class_name => 'EventSeries'
   belongs_to :community
 
   has_many :invitations, 
@@ -33,7 +33,7 @@ class Event < ActiveRecord::Base
     # Don't allow attendee's to be created with a not_attending status.
     if(!status.eql?(EventAttendanceStatus.not_attending))
       if(!attendees.include?(user))
-        if(event_series.visibility.eql?(EventVisibility.public))
+        if(series.visibility.eql?(EventVisibility.public))
           # Add attendee to public event.
           attendance = EventAttendance.new(:user => user,
                                            :event => self,
@@ -82,7 +82,6 @@ class Event < ActiveRecord::Base
   end
 
   def to_s
-    str = "#{event_series} - #{date.strftime('%m/%d/%y')}"
-    str << " at #{start_time.strftime('%I:%M%p')}" if has_start_time?
+    str = "#{series} in #{community.location}"
   end
 end

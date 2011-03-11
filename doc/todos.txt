@@ -3,7 +3,9 @@ X Allow users to have friends
 X Allow users to attend events
 X allow users to invite other users to attend events
 X allow users to register
-X- All events to be uploaded
+X All events to be uploaded
+X Show all events for a community
+- Get the UI put together
 - Show users the events they are currently attending.
 - allow users to join communities
 X create the new user view.
