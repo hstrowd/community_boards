@@ -112,14 +112,12 @@ ActiveRecord::Schema.define(:version => 20110308050846) do
   create_table "event_series", :force => true do |t|
     t.string   "title",         :null => false
     t.text     "description",   :null => false
-    t.integer  "community_id",  :null => false
     t.integer  "creator_id",    :null => false
     t.integer  "visibility_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "event_series", ["community_id"], :name => "fk_event_series_community_id"
   add_index "event_series", ["creator_id"], :name => "fk_event_series_creator_id"
   add_index "event_series", ["visibility_id"], :name => "fk_event_series_visibility_id"
 
@@ -130,6 +128,8 @@ ActiveRecord::Schema.define(:version => 20110308050846) do
 
   create_table "events", :force => true do |t|
     t.integer  "event_series_id", :null => false
+    t.text     "description"
+    t.integer  "community_id",    :null => false
     t.datetime "start_time",      :null => false
     t.datetime "end_time"
     t.float    "cost"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(:version => 20110308050846) do
     t.datetime "updated_at"
   end
 
+  add_index "events", ["community_id"], :name => "fk_events_community_id"
   add_index "events", ["event_series_id"], :name => "fk_events_event_series_id"
 
   create_table "friendship_statuses", :force => true do |t|

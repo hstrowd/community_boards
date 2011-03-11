@@ -1,4 +1,5 @@
 <%= form_tag :controller => 'users', :action => 'authenticate' %>
+<!-- TODO: Automatically move the focus to the login field -->
 <%= label(:login, :username) %>: <%= text_field(:login, :username, :size => 20) %><br/>
 <%= label(:login, :password) %>: <%= password_field(:login, :password, :size => 20) %><br/>
 <input type="submit" value="Login" />

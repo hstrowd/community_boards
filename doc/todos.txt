@@ -3,7 +3,7 @@ X Allow users to have friends
 X Allow users to attend events
 X allow users to invite other users to attend events
 X allow users to register
-- All events to be uploaded
+X- All events to be uploaded
 - Show users the events they are currently attending.
 - allow users to join communities
 X create the new user view.
@@ -20,6 +20,7 @@ X create the new user view.
 - allow users to reset their passwords
 - rename associations to remove generic names like 'user'
 - Update all down migrations
+- Update the event upload to be more robust and add unit tests.
 
 - Get a domain name.
 - Get hosting.

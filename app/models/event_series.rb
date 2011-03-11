@@ -1,9 +1,6 @@
-require 'csv'
-
 class EventSeries < ActiveRecord::Base
   include ApplicationHelper
 
-  belongs_to :community
   belongs_to :creator, :class_name => 'User'
   belongs_to :visibility, :class_name => 'EventVisibility'
 
@@ -16,7 +13,7 @@ class EventSeries < ActiveRecord::Base
            :through => :event_planners,
            :source => :user
 
-  validates_presence_of :title, :community, :creator
+  validates_presence_of :title, :creator
   # The set of planners must include the creator, so that they are able to add more planners.
   validates_each :planners do |model, attr, value|
     value.include?(model.creator)

@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
   belongs_to :event_series
+  belongs_to :community
 
   has_many :invitations, 
            :class_name => 'EventInvitation',
@@ -12,6 +13,7 @@ class Event < ActiveRecord::Base
            :through => :attendances,
            :source => :user
 
+  validates_presence_of :community
   # TODO: Break down this method.
   # Adds a User to the list of attendees for this Event. An attendee can only be added to an
   # Event if:

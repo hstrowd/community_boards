@@ -1,3 +1,5 @@
+require 'event_import'
+
 class EventsController < EventHubController
   before_filter :login_filter, :except => [:show]
   
