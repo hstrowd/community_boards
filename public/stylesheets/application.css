@@ -3,20 +3,160 @@ body {
     line-height: 18px;
     margin: 0;
     padding: 0;
+    background-color: #FFFFFF;
 }
 
+
+/*
+## ---------------------------------
+##  Header Styles
+## ---------------------------------
+*/
 .banner {
-    background: none repeat scroll 0 0 #222222;
-    height: 120px;
-    min-width: 1080px;
+    background: none repeat scroll 0 0 #000000; 
+    height: 80px;
+    border-bottom: solid 4px #66CCFF;
+    width: 100%;
 }
-.banner .logo {
-    color: white;
+.banner .center {
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.logo {
+    color: #FFFFFF;
     float: left;
-    height: 120px;
-    padding-left: 15%;
+}
+.logo a img {
+    border: 0;
 }
 
+
+.account_links {
+    float: right;
+    color: #FFFFFF;
+}
+.account_links a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+.account_links a:hover {
+    color: #66CCFF;
+}
+
+
+/*
+## ---------------------------------
+##  Content Styles
+## ---------------------------------
+*/
+#content {
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    min-height: 100%;
+    padding: 10px;
+}
+
+
+
+/*
+## ---------------------------------
+##  application/index
+## ---------------------------------
+*/
+
+#main_content {
+    margin: 5px;
+    width: 970px;
+}
+
+.events {
+    -moz-border-radius: 8px 8px 8px 8px ;
+    background: none repeat scroll 0 0 #DAD8A0;
+    border: 1px solid #B0B0B0;
+}
+
+.events .header h2 {
+    -moz-border-radius: 8px 8px 0px 0px;
+    background-color: #DDEDCC;
+    font-family: Gorgia,MS Serif;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 7px;
+    margin: 0px;
+    border-bottom: 1px solid #B0B0B0;
+}
+
+.filter_categories {
+    height: 39px;
+    margin: 0px;
+    padding: 0px;
+}
+.filter_element {
+    background: url(../images/filter_button_bg.png) repeat scroll 0 0 transparent;
+    float: left;
+    height: 39px;
+    cursor: pointer;
+}
+
+.filter_name{
+    color: #363636;
+    font-size: 18px;
+    margin-left: 10px;
+    padding-top: 12px;
+}
+#community_filter {
+    width: 321px;
+}
+#date_filter {
+    width: 321px;
+}
+#cost_filter {
+    width: 321px;
+}
+
+.filter_spacer1 {
+    background: -moz-linear-gradient(center bottom , #6E6E6E 21%, #B0B0B0 97%, #D4D4D4 95%) repeat scroll 0 0 #B0B0B0;
+    float: left;
+    width: 1px;
+    height: 100%;
+}
+.filter_spacer2 {
+    background: -moz-linear-gradient(center bottom , #919191 14%, #B8B8B8 40%, #D2D2D2 68%, #EEEEEE 100%) repeat scroll 0 0 #D2D2D2;
+    float: left;
+    width: 1px;
+    height: 39px;
+}
+
+.filter_options {
+    height: 150px;
+    overflow: hidden;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #B0B0B0;
+}
+.filter_set {
+    float: left;
+}
+.filter_selection {
+    width: 301px;
+    height: 100px;
+    margin: 10px 10px 10px 10px;
+}
+
+.filter_selection_submit {
+    float: right;
+    margin-right: 30px;
+}
+
+
+/*
+## ---------------------------------
+##  Main Menu - No longer used
+## ---------------------------------
+*/
 .main_menu {
     background: -moz-linear-gradient(center top, #FF7300, #CF5D00);
     height: 40px;
@@ -79,13 +219,3 @@ body {
     color: black;
 }
 
-
-#content {
-    width: 1080px;
-    margin-left: auto;
-    margin-right: auto;
-    border-left: 1px solid;
-    border-right: 1px solid;
-    min-height: 100%;
-    padding: 10px;
-}

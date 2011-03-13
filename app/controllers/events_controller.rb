@@ -1,8 +1,23 @@
 require 'event_import'
 
 class EventsController < EventHubController
-  before_filter :login_filter, :except => [:show]
-  
+  before_filter :login_filter, :except => [:show, :filter]
+
+  # Used to filter the currently visible set of events.
+  def filter
+    logger.error("Got to the filter action with params: #{params.inspect}")
+    if(params[:filter])
+      @events = Event.find_by_filters(params[:filter])
+    else
+      flash[:notice] = 'A condition to filter on must be specified.'
+      @events = Event.all
+    end
+
+    logger.debug("Showing #{@events.size} events.")
+
+    render :partial => 'events/event_list', :locals => {:events => @events}, :layout => false
+  end
+
   def import
     if(params[:community_id] && params[:import_file])
       community = Community.find_by_id(params[:community_id])

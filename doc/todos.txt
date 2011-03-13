@@ -23,6 +23,7 @@ X create the new user view.
 - rename associations to remove generic names like 'user'
 - Update all down migrations
 - Update the event upload to be more robust and add unit tests.
+- Add ability to post pictures for events.
 
 - Get a domain name.
 - Get hosting.
@@ -31,3 +32,6 @@ X create the new user view.
 - Add the page title to the title of each page.
 - Track pagehits
 - Add unit tests for all backend functionality
+
+
+

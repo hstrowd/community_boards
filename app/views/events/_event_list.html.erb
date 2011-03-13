@@ -1,0 +1,15 @@
+	<ol>
+	  <% @events.each do |event| %>
+	    <li> 
+	      <div class="event_info">
+		<b>Title:</b>  <%= link_to(event.series.title, event) %> <br/>
+		<b>Series Description:</b>  <%= event.series.description %> <br/>
+		<b>Event Description:</b>  <%= event.description %> <br/>
+		<b>Community:</b>  <%= link_to(event.community.name, event.community) %> <br/>
+		<b>Event Date:</b>  <%= event.date.strftime(date_format) %> <br/>
+		<b>Cost:</b>  <%= event.cost %> <br/>
+	      </div>
+	    </li>
+	    <hr>
+	  <% end %>
+	</ol>

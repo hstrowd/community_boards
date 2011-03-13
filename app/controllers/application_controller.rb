@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   def index
     @user = session[:user]
+    @events = Event.all
     render
   end
 end

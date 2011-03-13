@@ -4,13 +4,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>EventHub<% if @page_title %>  &raquo; <%= @page_title %><% end %></title>
   <%= stylesheet_link_tag 'application' %>
-  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'jquery', 'rails', 'application' %>
   <%= csrf_meta_tag %>
+  <%= yield :header %>
 </head>
 <body>
 
   <%= render :partial => 'layouts/header' %>
-  <%= render :partial => 'layouts/top_navigation' %>
+  <!-- %= render :partial => 'layouts/top_navigation' % -->
 
   <div id="content">
     <p id="notice"><%= notice %></p>

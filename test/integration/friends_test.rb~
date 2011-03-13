@@ -1,0 +1,12 @@
+require 'test_helper'
+
+class FriendsTest < ActiveSupport::TestCase
+  setup do
+    @user_1 = users(:one)
+    @user_2 = users(:two)
+  end
+
+  test "should fail" do
+    assert_equal(1,2)
+  end
+end

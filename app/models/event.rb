@@ -14,6 +14,34 @@ class Event < ActiveRecord::Base
            :source => :user
 
   validates_presence_of :community
+
+  def self.find_by_filters(filters)
+    condition_str = ''
+    condition_args = []
+    if filters[:date]
+      if filters[:date][:start] && filters[:date][:end]
+        condition_str << 'start_time BETWEEN ? AND ?'
+
+        start_date_hash = filters[:date][:start]
+        start_date = Date.civil(start_date_hash[:year].to_i, 
+                                start_date_hash[:month].to_i, 
+                                start_date_hash[:day].to_i)
+        condition_args << start_date
+
+        end_date_hash = filters[:date][:end]
+        end_date = Date.civil(end_date_hash[:year].to_i, 
+                              end_date_hash[:month].to_i, 
+                              end_date_hash[:day].to_i)
+        # When a user enters an end date, they expect the result to include events on that date.
+        condition_args << (end_date+1)
+
+        logger.debug("Filtering events by dates, between #{start_date} and #{end_date}.")
+      end
+    end
+
+    find(:all, :conditions => [condition_str, *condition_args])
+  end
+
   # TODO: Break down this method.
   # Adds a User to the list of attendees for this Event. An attendee can only be added to an
   # Event if:

@@ -1,6 +1,7 @@
 CommunityBoards::Application.routes.draw do
   resources :events do
     collection do
+      get 'filter'
       get 'search'
       post 'import'
       get 'import_form'

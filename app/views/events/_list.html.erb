@@ -1,0 +1,74 @@
+<% content_for :header do %>
+  <%= javascript_include_tag "events" %>
+<% end %>
+
+    <div class="events">
+      <div class="header">
+	<h2>Events:</h2>
+      </div>
+
+      <div class="filter">
+	<div class="filter_categories">
+	  <div id="community_filter" class="filter_element">
+	    <div class="filter_name">Community</div>
+	  </div>
+	  <div class="filter_spacer1"></div>
+	  <div class="filter_spacer2"></div>
+	  <div id="date_filter" class="filter_element">
+	    <div class="filter_name">Date</div>
+	  </div>
+	  <div class="filter_spacer1"></div>
+	  <div class="filter_spacer2"></div>
+	  <div id="cost_filter" class="filter_element">
+	    <div class="filter_name">Cost</div>
+	  </div>
+	  <div class="filter_spacer1"></div>
+	</div>
+	<div class="filter_options">
+	  <div id="community_filter" class="filter_set">
+	    <%= form_tag(:url => {:action => 'filter'},
+			 :remote => true,
+			 :method => 'post',
+			 :update => 'event_list',
+			 :html => {:class => 'filter_form'}) do %>
+	      <%= select_tag('filter[community]', 
+			     options_for_select(Community.all.collect { |community| [community.name, community.id]}), 
+			     {:multiple => true, :class => 'filter_selection'}) %>
+	      <%= submit_tag('Filter', {:class => 'filter_selection_submit'}) %>
+	    <% end %>
+	  </div>
+	  <div class="filter_spacer1"></div>
+	  <div id="date_filter" class="filter_set">
+	    <%= form_tag(filter_events_path,
+			 :remote => true,
+			 :method => 'post',
+			 :update => 'event_list',
+			 :id => 'date_filter_form',
+			 :class => 'filter_form',
+			 :'data-type' => 'html') do %>
+	      <div class='filter_selection'>
+		From: <%= select_date(Date.today, :prefix => 'filter[date][start]') %><br/>
+		To: <%= select_date(Date.today, :prefix => 'filter[date][end]') %>
+	      </div>
+	      <%= submit_tag('Filter', {:class => 'filter_selection_submit'}) %>
+	    <% end %>
+	  </div>
+	  <div class="filter_spacer1"></div>
+	  <div id="cost_filter" class="filter_set">
+	    <%= form_tag(:url => {:action => 'filter'},
+			 :remote => true,
+			 :method => 'post',
+			 :update => 'event_list') do %>
+	      <%= select_tag('filter[community]', 
+			     options_for_select(cost_ranges), 
+			     {:multiple => true, :class => 'filter_selection'}) %>
+	      <%= submit_tag('Filter', {:class => 'filter_selection_submit'}) %>
+	    <% end %>
+	  </div>
+	</div>
+      </div>
+
+      <div id="event_list">
+	<%= render 'events/event_list' %>
+      </div>
+    </div>
