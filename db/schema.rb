@@ -75,6 +75,14 @@ ActiveRecord::Schema.define(:version => 20110308050846) do
   add_index "event_attendances", ["status_id"], :name => "fk_event_attendances_status_id"
   add_index "event_attendances", ["user_id"], :name => "fk_event_attendances_user_id"
 
+  create_table "event_images", :force => true do |t|
+    t.integer "image_id", :null => false
+    t.integer "event_id", :null => false
+  end
+
+  add_index "event_images", ["event_id"], :name => "fk_event_images_event_id"
+  add_index "event_images", ["image_id"], :name => "fk_event_images_image_id"
+
   create_table "event_invitation_emails", :force => true do |t|
     t.integer  "invitation_id", :null => false
     t.integer  "email_id",      :null => false
@@ -156,6 +164,13 @@ ActiveRecord::Schema.define(:version => 20110308050846) do
   add_index "friendships", ["initiator_id"], :name => "fk_friendships_initiator_id"
   add_index "friendships", ["recipient_id"], :name => "fk_friendships_recipient_id"
   add_index "friendships", ["status_id"], :name => "fk_friendships_status_id"
+
+  create_table "images", :force => true do |t|
+    t.string   "source",      :null => false
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "locations", :force => true do |t|
     t.string   "country_cd", :limit => 3, :null => false

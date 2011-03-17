@@ -1,0 +1,7 @@
+main_logo:
+  source: public/images/main_logo.png
+  description: |
+    The EventHub logo.
+
+placeholder:
+  source: public/images/placeholder.jpg

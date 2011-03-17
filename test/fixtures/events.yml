@@ -1,17 +1,58 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one_one:
-  event_series: one
+multi_one:
+  series: multi
+  community: city
   start_time: 2011-02-27 16:01:01
   end_time: 2011-02-27 16:01:01
   cost: 1
 
-one_two:
-  event_series: one
+multi_two:
+  series: multi
+  community: city
   start_time: 2011-02-28 00:00:00
 
-two_one:
-  event_series: two
+multi_three:
+  series: multi
+  community: city
+  start_time: 2011-03-27 14:00:01
+  end_time: 2011-03-28 09:00:01
+  cost: 25
+
+single:
+  series: single
+  community: city
+  start_time: 2011-03-10 15:45:00
+  end_time: 2011-03-10 19:00:00
+  cost: 15
+
+
+
+public:
+  series: public
+  community: city
   start_time: 2011-02-27 16:01:01
   end_time: 2011-02-27 16:01:01
   cost: 1
+
+private:
+  series: private
+  community: community
+  start_time: 2011-02-27 16:01:01
+  end_time: 2011-02-27 16:01:01
+  cost: 1
+
+
+with_images:
+  series: three
+  community: city
+  start_time: 2011-02-26 15:00:00
+  end_time: 2011-02-26 16:00:00
+  cost: 5
+
+without_images:
+  series: three
+  community: city
+  start_time: 2011-03-04 12:00:00
+  end_time: 2011-03-04 14:30:00
+  cost: 10

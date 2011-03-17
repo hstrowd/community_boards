@@ -26,7 +26,6 @@ class CreateEvents < ActiveRecord::Migration
     add_foreign_key 'event_series', 'creator_id', 'users'
     add_foreign_key 'event_series', 'visibility_id', 'event_visibilities'
 
-
     create_table :events do |t|
       t.integer :series_id, :null => false
       t.text :description
@@ -53,6 +52,22 @@ class CreateEvents < ActiveRecord::Migration
     add_foreign_key 'event_planners', 'user_id', 'users'
     add_foreign_key 'event_planners', 'event_series_id', 'event_series'
     add_foreign_key 'event_planners', 'appointer_id', 'users'
+
+
+    create_table :images do |t|
+      t.string :source, :null => false
+      t.text :description
+
+      t.timestamps
+    end
+
+    create_table :event_images do |t|
+      t.integer :image_id, :null => false
+      t.integer :event_id, :null => false
+    end
+
+    add_foreign_key 'event_images', 'image_id', 'images'
+    add_foreign_key 'event_images', 'event_id', 'events'
   end
 
   def self.down

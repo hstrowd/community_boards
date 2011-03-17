@@ -1,13 +1,35 @@
-one:
+public:
   title: MyString
   description: MyText
-  community: one
-  creator: one
+  creator: user
   visibility: public
 
-two:
+private:
   title: MyString
   description: MyText
-  community: two
-  creator: two
+  creator: private_event_planner
   visibility: private
+
+
+multi:
+  title: Multiple Event Series
+  description: |
+    This series has multiple events.
+    It's gonna be awesome.
+  creator: user
+  visibility: public
+
+single:
+  title: Single Event Series
+  description: |
+    This series has only one event.
+  creator: user
+  visibility: public
+
+
+other:
+  title: Catch-All Series
+  description: |
+    This test series is used to hold all remaining events.
+  creator: user
+  visibility: public

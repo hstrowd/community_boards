@@ -1,12 +1,12 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+city:
   name: MyString
   type: City
   visibility: public
   location: chicago
 
-two:
+community:
   name: MyString
   type: 
   visibility: private

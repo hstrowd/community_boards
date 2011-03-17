@@ -1,7 +1,3 @@
-one:
-  user: one
-  event_series: one
-
-two:
-  user: two
-  event_series: two
+private_planner:
+  user: private_event_planner
+  event_series: private

@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
   def self.authenticate(username, password)
     # Check whether this user exists and verify the provided password.
     if((user = find_by_username(username)) && 
-       (user.hashed_password = User.encrypt(password, user.salt)))
+       (user.hashed_password == User.encrypt(password, user.salt)))
       user
     end
   end

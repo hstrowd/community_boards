@@ -2,6 +2,9 @@ class Event < ActiveRecord::Base
   belongs_to :series, :class_name => 'EventSeries'
   belongs_to :community
 
+  has_many :event_images
+  has_many :images, :through => :event_images
+
   has_many :invitations, 
            :class_name => 'EventInvitation',
            :order => 'created_at DESC'
@@ -13,27 +16,29 @@ class Event < ActiveRecord::Base
            :through => :attendances,
            :source => :user
 
-  validates_presence_of :community
+  validates_presence_of :series, :community
+
+  validates_each :start_time do |model,attr,value|
+    if model[:end_time]
+      if !value
+        model.errors.add(:start_time, 'is required when setting an end time.')        
+      elsif value > model[:end_time]
+        model.errors.add(:start_time, 'must occur before the end time.')        
+      end
+    end
+  end
 
   def self.find_by_filters(filters)
     condition_str = ''
     condition_args = []
     if filters[:date]
-      if filters[:date][:start] && filters[:date][:end]
+      if((start_date = filters[:date][:start]) && (end_date = filters[:date][:end]))
         condition_str << 'start_time BETWEEN ? AND ?'
 
-        start_date_hash = filters[:date][:start]
-        start_date = Date.civil(start_date_hash[:year].to_i, 
-                                start_date_hash[:month].to_i, 
-                                start_date_hash[:day].to_i)
         condition_args << start_date
 
-        end_date_hash = filters[:date][:end]
-        end_date = Date.civil(end_date_hash[:year].to_i, 
-                              end_date_hash[:month].to_i, 
-                              end_date_hash[:day].to_i)
         # When a user enters an end date, they expect the result to include events on that date.
-        condition_args << (end_date+1)
+        condition_args << (end_date + 1)
 
         logger.debug("Filtering events by dates, between #{start_date} and #{end_date}.")
       end

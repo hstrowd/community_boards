@@ -5,15 +5,46 @@ class UsersControllerTest < ActionController::TestCase
     @unique_seed = generate_test_seed
   end
 
-  # test "should get index" do
-  #   get :index
-  #   assert_response :success
-  #   assert_not_nil assigns(:users)
-  # end
+  test "should authenticate users" do
+    existing_user = users(:one)
+
+    # Should reject requests with an unknown username.
+    credentials = {:username => 'unknownUser',
+                   :password => 'myPassword1'}
+    post(:authenticate, :login => credentials)
+    assert_nil session[:user]
+    assert_not_nil flash[:notice]
+    assert_redirected_to login_users_path
+
+    # Should reject requests with an invalid password.
+    credentials = {:username => existing_user.username,
+                   :password => 'invalidPassword'}
+    post(:authenticate, :login => credentials)
+    assert_nil session[:user]
+    assert_not_nil flash[:notice]
+    assert_redirected_to login_users_path
+
+    # Should reject requests that don't provide credentials.
+    post(:authenticate)
+    assert_nil session[:user]
+    assert_not_nil flash[:notice]
+    assert_redirected_to login_users_path
+
+    # Should login requests with valid credentials.
+    flash[:notice] = nil
+    credentials = {:username => existing_user.username,
+                   :password => 'myPassword1'}
+    post(:authenticate, :login => credentials)
+    assert_not_nil session[:user]
+    assert_nil flash[:notice]
+    assert_redirected_to root_path
+  end
 
   test "should get new" do
     get :new
     assert_response :success
+    assert_not_nil assigns(:user)
+    assert assigns(:user).new_record?
   end
 
   test "should create user" do
@@ -30,11 +61,12 @@ class UsersControllerTest < ActionController::TestCase
     assert_nil(EmailAddress.find_by_email(email_1))
     assert_difference('User.count') do
       response = post :create, :user => attributes
+      puts response.inspect
     end
     assert_not_nil(User.find_by_username(username_1))
     assert_not_nil(EmailAddress.find_by_email(email_1))
 
-    assert_redirected_to user_path(assigns(:user))
+    assert_redirected_to root_path
 
     # Should reject duplicate usernames.
     email_2 = "#{@unique_seed}.test@test.com"

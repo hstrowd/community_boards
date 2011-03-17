@@ -5,6 +5,7 @@ X allow users to invite other users to attend events
 X allow users to register
 X All events to be uploaded
 X Show all events for a community
+X Add support for linking images to events
 - Get the UI put together
 - Paginate results
 - allow users to join communities

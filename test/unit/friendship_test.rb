@@ -2,8 +2,8 @@ require 'test_helper'
 
 class FriendshipTest < ActiveSupport::TestCase
   setup do
-    @user_1 = users(:one)
-    @user_2 = users(:two)
+    @user_1 = users(:user)
+    @user_2 = users(:regulator)
   end
 
   test "should start with no friends" do

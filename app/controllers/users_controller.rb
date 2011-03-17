@@ -2,17 +2,19 @@ class UsersController < EventHubController
   before_filter :login_filter, :except => [:new, :create, :login, :authenticate, :logout]
 
   def authenticate
-    if(params[:login][:username] && params[:login][:password])
+    if(params[:login] && params[:login][:username] && params[:login][:password])
       # Authenticate the provided information
       if(user = User.authenticate(params[:login][:username], params[:login][:password]))
         # Create a session with users id
         session[:user] = user
         redirect_to :controller => 'application', :action => 'index'
       else
+        session[:user] = nil
         flash[:notice] = "Invalid User/Password"
         redirect_to :action => 'login'
       end
     else
+      session[:user] = nil
       flash[:notice] = "Login credentials required to log in."
       redirect_to :action => 'login'
     end

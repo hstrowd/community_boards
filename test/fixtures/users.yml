@@ -9,7 +9,7 @@ admin:
   permission: admin
   visibility: private
 
-one:
+user:
   full_name: User One
   username: user.one
   hashed_password: b24f0ecbb68a22e2af75c9abfa2f91b8a8e95943 # myPassword1
@@ -18,11 +18,19 @@ one:
   permission: user
   visibility: friends_only
 
-two:
+regulator:
   full_name: User Two
   username: user2
   hashed_password: 9c9695331c64d87a7e98c6ff364690ec4fcf6027 # testPassword2
   salt: two_2000
   primary_email: two
   permission: regulator
+  visibility: public
+
+private_event_planner:
+  full_name: Private Planner
+  username: pvtPlanner
+  hashed_password: 6eac57f8ac5c7cffabdb00be0d0fb1e306f419a1 # PPPass1
+  salt: plan_3000
+  permission: user
   visibility: public

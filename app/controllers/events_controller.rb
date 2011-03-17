@@ -6,8 +6,17 @@ class EventsController < EventHubController
   # Used to filter the currently visible set of events.
   def filter
     logger.error("Got to the filter action with params: #{params.inspect}")
-    if(params[:filter])
-      @events = Event.find_by_filters(params[:filter])
+    if(filters = params[:filter])
+      # Everything in the date hash should be a key pointing to a hash of day, month, and year.
+      if(filters[:date])
+        filters[:date].each_pair do |key, date_hash|
+        filters[:date][key] = Date.civil(date_hash[:year].to_i, 
+                                        date_hash[:month].to_i, 
+                                        date_hash[:day].to_i)
+        end
+      end
+
+      @events = Event.find_by_filters(filters)
     else
       flash[:notice] = 'A condition to filter on must be specified.'
       @events = Event.all

@@ -22,10 +22,9 @@ class EventInvitation < ActiveRecord::Base
   # Return:
   # * See #send_to
   def self.send_invitation(event, sender, subject, body, email_addresses = [])
-    if(event.event_series.planners.include?(sender))
+    if(event.series.planners.include?(sender))
       if(!subject.empty? && !body.empty?)
-        invitation = new(:event => event, :sender => sender, :subject => subject, :body => body)
-        invitation.save!
+        invitation = create!(:event => event, :sender => sender, :subject => subject, :body => body)
       
         invitation.send_to(email_addresses)
       else
@@ -62,9 +61,8 @@ class EventInvitation < ActiveRecord::Base
       end
 
       if(!already_sent_today)
-        email = EventInvitationEmail.new(:invitation => self, 
-                                         :email => email_address)
-        email.save!
+        email = EventInvitationEmail.create!(:invitation => self, 
+                                             :email => email_address)
 
         # If a user exists for this email, create a tentative attendance for this event.
         if((user = email_address.user) && !event.attendees.include?(user))

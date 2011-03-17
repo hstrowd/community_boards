@@ -4,9 +4,9 @@ admin:
 
 one:
   email: test@example.com
-  user: one
+  user: user
 
 two:
   email: test2@mysite.com
-  user: two
+  user: regulator
   
