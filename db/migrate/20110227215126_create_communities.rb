@@ -15,7 +15,6 @@ class CreateCommunities < ActiveRecord::Migration
     create_table :communities do |t|
       t.string :name, :null => false
       t.integer :location_id
-      t.string :type
       t.integer :visibility_id, :null => false
       t.integer :creator_id
 

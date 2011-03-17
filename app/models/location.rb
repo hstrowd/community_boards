@@ -1,5 +1,6 @@
 class Location < ActiveRecord::Base
   has_many :communities
+  has_many :events
   has_many :users
 
   validates_presence_of :country_cd, :city

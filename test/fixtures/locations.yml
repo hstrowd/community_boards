@@ -5,7 +5,7 @@ chicago:
   state_cd: IL
   city: Chicago
 
-two:
+christchurch:
   country_cd: NZ
   state_cd: ''
-  city: test city2
+  city: Christchurch

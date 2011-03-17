@@ -7,7 +7,6 @@ class Community < ActiveRecord::Base
   has_many :events, :dependent => :destroy
 
   validates_presence_of :name
-  validates_inclusion_of :type, :in => %w(City)
 
   def public?
     visibility.eql?(CommunityVisibility.public)

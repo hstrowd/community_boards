@@ -29,7 +29,8 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.integer :series_id, :null => false
       t.text :description
-      t.integer :community_id, :null => false
+      t.integer :location_id, :null => false
+      t.integer :community_id
       t.datetime :start_time, :null => false
       t.datetime :end_time
       t.float :cost
@@ -37,6 +38,7 @@ class CreateEvents < ActiveRecord::Migration
       t.timestamps
     end
 
+    add_foreign_key 'events', 'location_id', 'locations'
     add_foreign_key 'events', 'community_id', 'communities'
     add_foreign_key 'events', 'series_id', 'event_series'
 

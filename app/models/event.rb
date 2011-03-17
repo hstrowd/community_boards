@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
   belongs_to :series, :class_name => 'EventSeries'
+  belongs_to :location
   belongs_to :community
 
   has_many :event_images
@@ -16,21 +17,18 @@ class Event < ActiveRecord::Base
            :through => :attendances,
            :source => :user
 
-  validates_presence_of :series, :community
+  validates_presence_of :series, :location, :start_time
 
   validates_each :start_time do |model,attr,value|
-    if model[:end_time]
-      if !value
-        model.errors.add(:start_time, 'is required when setting an end time.')        
-      elsif value > model[:end_time]
+    if model[:end_time] && value > model[:end_time]
         model.errors.add(:start_time, 'must occur before the end time.')        
-      end
     end
   end
 
   def self.find_by_filters(filters)
     condition_str = ''
     condition_args = []
+
     if filters[:date]
       if((start_date = filters[:date][:start]) && (end_date = filters[:date][:end]))
         condition_str << 'start_time BETWEEN ? AND ?'

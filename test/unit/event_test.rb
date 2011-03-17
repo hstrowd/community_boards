@@ -1,31 +1,51 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-  test 'should require valid start and end times' do
-    event = Event.new({ :series => event_series(:public),
-                        :community => communities(:city),
-                        :start_time => Time.now })
-    # Allow start time without end time
-    assert event.valid?, 'Events with only a start time should be valid.'
 
-    # Don't allow end time without start time
-    event.start_time = nil
-    event.end_time = Time.now
-    assert !event.valid?, 'Events with only an end time should not be valid.'
+  # ---------------------------
+  #   Associations
+  # ---------------------------
 
-    # Don't allow end time before start time
-    event.start_time = Time.now + 1.hour
-    assert !event.valid?, 'Events whose end time preceeds its start time should not be valid.'
+  test 'should have a location' do
+    chicago = locations(:chicago)
+    event = Event.new(:location => chicago)
+    assert_equal(event.location, chicago)
   end
 
   test 'should have associated images' do 
     assert !events(:with_images).images.empty?
-    assert_equal events(:without_images).images, []
+    assert_equal(events(:without_images).images, [])
   end
 
   test 'should be taggable' do 
-    assert_nil "Implement me!"
+    assert_nil("Implement me!")
   end
+
+
+  # ---------------------------
+  #   Validations
+  # ---------------------------
+
+  test 'should require valid start and end times' do
+    event = Event.new({ :series => event_series(:public),
+                        :location => locations(:christchurch),
+                        :start_time => nil })
+    # Allow start time without end time
+    assert !event.valid?, 'Events without a start time should not be valid.'
+
+    # Don't allow end time without start time
+    event.start_time = Time.now
+    assert event.valid?, 'Events with only a start time should be valid.'
+
+    # Don't allow end time before start time
+    event.end_time = Time.now - 1.hour
+    assert !event.valid?, 'Events whose end time preceeds its start time should not be valid.'
+  end
+
+
+  # ---------------------------
+  #   Class Methods
+  # ---------------------------
 
   test 'find_by_filters for start/end dates' do
     start_date = '25-02-2011'.to_date
@@ -35,6 +55,10 @@ class EventTest < ActiveSupport::TestCase
     assert_equal(filtered_events, Event.find(:all, :conditions => ['start_time BETWEEN ? AND ?',
                                                                    start_date, (end_date + 1)]))
   end
+
+  # ---------------------------
+  #   Instance Methods
+  # ---------------------------
 
   test 'add_attendee to a public event' do
     public_event = events(:public)

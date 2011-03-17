@@ -2,26 +2,27 @@
 
 multi_one:
   series: multi
-  community: city
+  location: chicago
   start_time: 2011-02-27 16:01:01
   end_time: 2011-02-27 16:01:01
   cost: 1
 
 multi_two:
   series: multi
+  location: chicago
   community: city
   start_time: 2011-02-28 00:00:00
 
 multi_three:
   series: multi
-  community: city
+  location: chicago
   start_time: 2011-03-27 14:00:01
   end_time: 2011-03-28 09:00:01
   cost: 25
 
 single:
   series: single
-  community: city
+  location: chicago
   start_time: 2011-03-10 15:45:00
   end_time: 2011-03-10 19:00:00
   cost: 15
@@ -30,13 +31,14 @@ single:
 
 public:
   series: public
-  community: city
+  location: chicago
   start_time: 2011-02-27 16:01:01
   end_time: 2011-02-27 16:01:01
   cost: 1
 
 private:
   series: private
+  location: christchurch
   community: community
   start_time: 2011-02-27 16:01:01
   end_time: 2011-02-27 16:01:01
@@ -45,14 +47,14 @@ private:
 
 with_images:
   series: three
-  community: city
+  location: chicago
   start_time: 2011-02-26 15:00:00
   end_time: 2011-02-26 16:00:00
   cost: 5
 
 without_images:
   series: three
-  community: city
+  location: chicago
   start_time: 2011-03-04 12:00:00
   end_time: 2011-03-04 14:30:00
   cost: 10
