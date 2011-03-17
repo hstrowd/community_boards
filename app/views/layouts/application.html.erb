@@ -10,14 +10,16 @@
 </head>
 <body>
 
-  <%= render :partial => 'layouts/header' %>
-  <!-- %= render :partial => 'layouts/top_navigation' % -->
+  <div id="full_page">
+    <%= render :partial => 'layouts/header' %>
+    <%= render :partial => 'layouts/top_navigation' %>
 
-  <div id="content">
-    <p id="notice"><%= notice %></p>
-    <p id="error"><%= flash['error'] %></p>
-
-    <%= yield %>
+    <div id="content">
+      <p id="notice"><%= notice %></p>
+      <p id="error"><%= flash['error'] %></p>
+      
+      <%= yield %>
+    </div>
   </div>
 
 </body>

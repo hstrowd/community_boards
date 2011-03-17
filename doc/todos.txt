@@ -6,7 +6,7 @@ X allow users to register
 X All events to be uploaded
 X Show all events for a community
 - Get the UI put together
-- Show users the events they are currently attending.
+- Paginate results
 - allow users to join communities
 X create the new user view.
 - Allow users to join multiple locations.
@@ -20,6 +20,7 @@ X create the new user view.
 - Allow users to view a calendar of their events
 - Allow users to give feedback
 - allow users to reset their passwords
+- Show users the events they are currently attending.
 - rename associations to remove generic names like 'user'
 - Update all down migrations
 - Update the event upload to be more robust and add unit tests.

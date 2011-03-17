@@ -29,7 +29,10 @@
   <%= link_to "View Account", user_path(@user) %>
   <br/>
 <% else %>
-  Welcome to EventHub!
+  
+  <div class='welcome'>
+    Welcome to EventHub! We are your one stop shop for finding events going on in your area.
+  </div>
 
   <div id="main_content">
     <%= render 'events/list' %>

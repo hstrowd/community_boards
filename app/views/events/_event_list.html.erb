@@ -1,15 +1,28 @@
-	<ol>
-	  <% @events.each do |event| %>
-	    <li> 
-	      <div class="event_info">
-		<b>Title:</b>  <%= link_to(event.series.title, event) %> <br/>
-		<b>Series Description:</b>  <%= event.series.description %> <br/>
-		<b>Event Description:</b>  <%= event.description %> <br/>
-		<b>Community:</b>  <%= link_to(event.community.name, event.community) %> <br/>
-		<b>Event Date:</b>  <%= event.date.strftime(date_format) %> <br/>
-		<b>Cost:</b>  <%= event.cost %> <br/>
-	      </div>
-	    </li>
-	    <hr>
-	  <% end %>
-	</ol>
+<div id="event_list">
+    <% @events.each do |event| %>
+      <table class="event"> 
+	<tr>
+	  <td class="event_img_container">
+            <%= link_to(image_tag("placeholder.jpg", :class => 'event_img'), event) %>
+	  </td>
+	  <td class="event_info">
+          <div class="event_title"><%= link_to(event.series.title, event) %></div>
+	  <div class="event_info_label">Description:</div>
+	  <div class="event_description"><%= event.series.description %></div>
+          <div class="event_fact">
+            <div class="event_info_label">Event Date: </div>
+	    <div class="event_date"><%= event.date.strftime(date_format) %></div>
+	  </div>
+          <div class="event_fact">
+	    <div class="event_info_label">Location: </div>
+	    <div class="event_location"><%= event.community.name %></div>
+	  </div>
+          <div class="event_fact">
+            <div class="event_info_label">Cost: </div>
+	    <div class="event_cost"><%= event.cost %></div>
+	  </div>
+	  </td>
+	</tr>
+      </table>
+    <% end %>
+<div>
